@@ -5,5 +5,5 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public record UserRole(Long id, UserDTO user, RoleDTO role) {
+public record RoleDTO(Long id, String name, String description) {
 }

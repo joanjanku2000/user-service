@@ -1,4 +1,10 @@
 package com.onlinecv.userservice.model.dto;
 
-public class UserData {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public record UserData(Long id, UserDTO userDTO, UserDataKey userDataKey) {
+
 }
