@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: ${USER_SERVICE_DB}
+    username: ${USER_SERVICE_DB_USER}
+    password: ${USER_SERVICE_DB_PSW}
+    driverClassName: org.postgresql.Driver
