@@ -5,7 +5,7 @@ spring:
     hibernate:
       ddl-auto: none
   datasource:
-    url: ${USER_SERVICE_DB}
-    username: ${USER_SERVICE_DB_USER}
-    password: ${USER_SERVICE_DB_PSW}
+    url: jdbc:postgresql://localhost:5432/user_cv #${USER_SERVICE_DB}
+    username: postgres #${USER_SERVICE_DB_USER}
+    password: mausimj #${USER_SERVICE_DB_PSW}
     driverClassName: org.postgresql.Driver
