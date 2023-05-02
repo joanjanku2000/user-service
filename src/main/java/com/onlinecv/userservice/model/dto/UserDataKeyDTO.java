@@ -6,6 +6,6 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UserDataKey extends BaseDTO {
+public class UserDataKeyDTO extends BaseDTO {
     private String keyName;
 }

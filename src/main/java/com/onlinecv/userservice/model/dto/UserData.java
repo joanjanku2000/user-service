@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserData extends BaseDTO {
     private UserDTO userDTO;
-    private UserDataKey userDataKey;
+    private UserDataKeyDTO userDataKey;
 
 }

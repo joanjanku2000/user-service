@@ -1,5 +1,7 @@
 package com.onlinecv.userservice.base.entity;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 @EnableJpaAuditing
 public abstract class BaseEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @CreatedDate
@@ -19,4 +22,6 @@ public abstract class BaseEntity {
 
     @LastModifiedDate
     private LocalDateTime lastModified;
+
+    private Boolean deleted;
 }
