@@ -1,12 +1,14 @@
 package com.onlinecv.userservice.model.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Getter
-@Setter
-public record UserDTO(Long id, String username, String name, String lastName, LocalDate birthday) {
+@Data
+public class UserDTO {
+    private Long id;
+    private String username;
+    private String name;
+    private String lastName;
+    private LocalDate birthday;
 }

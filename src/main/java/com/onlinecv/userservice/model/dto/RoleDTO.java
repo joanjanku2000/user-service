@@ -1,9 +1,11 @@
 package com.onlinecv.userservice.model.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
-public record RoleDTO(Long id, String name, String description) {
+@Data @NoArgsConstructor
+public class RoleDTO {
+    private Long id;
+    private String name;
+    private String description;
 }
