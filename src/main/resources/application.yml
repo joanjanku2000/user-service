@@ -1,11 +1,3 @@
 spring:
-  jpa:
-    database: POSTGRESQL
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-  datasource:
-    url: jdbc:postgresql://localhost:5432/user_cv #${USER_SERVICE_DB}
-    username: postgres #${USER_SERVICE_DB_USER}
-    password: mausimj #${USER_SERVICE_DB_PSW}
-    driverClassName: org.postgresql.Driver
+  profiles:
+    active: dev
