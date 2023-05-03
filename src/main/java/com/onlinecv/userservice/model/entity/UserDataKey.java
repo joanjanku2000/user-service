@@ -7,10 +7,12 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import static com.onlinecv.userservice.base.entity.BaseEntity.DELETE_CLAUSE;
+
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Where(clause = "deleted = false")
+@Where(clause = DELETE_CLAUSE)
 @SQLDelete(sql = "UPDATE UserDataKey u SET u.deleted = false where u.id = ?")
 public class UserDataKey extends BaseEntity {
     private String keyName;

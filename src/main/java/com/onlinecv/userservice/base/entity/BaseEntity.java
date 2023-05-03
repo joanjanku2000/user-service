@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EnableJpaAuditing
 public abstract class BaseEntity {
+    public static final String DELETE_CLAUSE = "deleted=false";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

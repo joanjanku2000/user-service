@@ -11,10 +11,12 @@ import org.hibernate.annotations.Where;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.onlinecv.userservice.base.entity.BaseEntity.DELETE_CLAUSE;
+
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Where(clause = "deleted = false")
+@Where(clause = DELETE_CLAUSE)
 @SQLDelete(sql = "UPDATE User u SET u.deleted = false where u.id = ?")
 public class User extends BaseEntity {
     private String username;
