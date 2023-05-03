@@ -79,3 +79,9 @@ ALTER TABLE IF EXISTS public.user_data
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID;
+
+ALTER table public.role
+    add column last_modified timestamp;
+
+ALTER table public.role
+    add column created_at timestamp;
