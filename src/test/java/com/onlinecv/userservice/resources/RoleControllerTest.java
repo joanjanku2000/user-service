@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
 
+import static com.onlinecv.userservice.mapper.RoleMapperTest.getTestRole;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -27,15 +28,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class RoleControllerTest {
     private static final String BASE_URL = "http://localhost:8080";
+    private static final String PATH = "/role";
     private static final Logger log = LoggerFactory.getLogger(RoleControllerTest.class);
     private static final RestTemplate restTemplate = new RestTemplate();
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    private static final String ROLE_URL = BASE_URL + "/role";
+    private static final String ROLE_URL = BASE_URL + PATH;
 
     private static HttpEntity<String> toRequest(RoleDTO roleDTO) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        return new HttpEntity<>(toJson(roleDTO),headers);
+        return new HttpEntity<>(toJson(roleDTO), headers);
     }
 
     private static String toJson(RoleDTO roleDTO) throws JsonProcessingException {
@@ -45,11 +47,9 @@ public class RoleControllerTest {
     @Test
     @DisplayName("Test - POST /role")
     void postRole() throws JsonProcessingException {
-        RoleDTO roleDTO = new RoleDTO();
-        roleDTO.setName("Test");
-        roleDTO.setDescription("Description");
+        RoleDTO roleDTO = getTestRole();
         ResponseEntity<String> savedRole = restTemplate.postForEntity(ROLE_URL, toRequest(roleDTO), String.class);
-        log.info("Gotten response from server {} ",savedRole);
+        log.info("Gotten response from server {} ", savedRole);
         assertEquals(savedRole.getStatusCode(), HttpStatus.OK);
         assertTrue(Objects.requireNonNull(savedRole.getBody()).contains(roleDTO.getName()));
     }
