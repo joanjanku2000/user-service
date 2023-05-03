@@ -1,0 +1,19 @@
+server:
+  port: 9090
+spring:
+  datasource:
+    url: jdbc:h2:mem:user_cv
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+  sql:
+    init:
+      mode: always
