@@ -93,7 +93,6 @@ public class RoleControllerTest extends BaseTest {
     @DisplayName("Test - PUT /role - Must fail - Non Unique")
     void putRole_Fail() throws JsonProcessingException {
         RoleDTO createdRole = responseEntityToDTO(postRole(getTestRole()), RoleDTO.class);
-        // modify name
         assertThrows(RuntimeException.class, () -> put(ROLE_URL, createdRole));
     }
 
