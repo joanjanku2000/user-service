@@ -1,9 +1,15 @@
 # user-service
 
+## Main Dependencies
+
 - Spring Boot 3
 - Java 17
 - PostgreSQL
 - JPA - Hibernate
+- Spring AOP
+- MapStruct
+- Apache Commons
+- H2 Database
 
 ## Interesting Features
 - Customized Logging (Even to file)
