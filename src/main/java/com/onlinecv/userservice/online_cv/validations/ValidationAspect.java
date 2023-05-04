@@ -26,14 +26,14 @@ public class ValidationAspect {
     @Around("@annotation(com.onlinecv.userservice.online_cv.validations.Validate)")
     public Object validate(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
-        Validate validate = Objects.requireNonNull(signature.getMethod().getAnnotation(Validate.class));
-        String fieldName = validate.field();
-        Class<?> entity = validate.entity();
-        String entityClassName = entity.getSimpleName();
-        Object o = proceedingJoinPoint.getArgs()[validate.argumentPos()];
+        Validate validateAnnotation = Objects.requireNonNull(signature.getMethod().getAnnotation(Validate.class));
+        String fieldName = validateAnnotation.field();
+        String entityClassName = validateAnnotation.entity().getSimpleName();
+        Object o = proceedingJoinPoint.getArgs()[validateAnnotation.argumentPos()];
 
-        if (validate.value().equals(Validation.UNIQUE)) {
-            if (baseRepository.findBy(entityClassName, fieldName, readValue(o, fieldName)).size() > 0){
+        if (validateAnnotation.value().equals(Validation.UNIQUE)) {
+            if (baseRepository.findBy(entityClassName, fieldName, readValue(o, fieldName)).size() > 0) {
+                // stop execution
                 throw new RuntimeException();
             }
         }
