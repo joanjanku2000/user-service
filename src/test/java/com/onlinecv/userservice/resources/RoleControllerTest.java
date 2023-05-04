@@ -1,6 +1,7 @@
 package com.onlinecv.userservice.resources;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.onlinecv.userservice.base.dto.BaseDTO;
 import com.onlinecv.userservice.online_cv.model.dto.RoleDTO;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
 import org.apache.commons.lang3.RandomUtils;
@@ -31,14 +32,13 @@ public class RoleControllerTest extends BaseTest {
         this.roleRepository = roleRepository;
     }
 
-    private static void assertSuccessfulResponse(RoleDTO roleDTO, ResponseEntity<String> savedRole) throws JsonProcessingException {
-        assertEquals(savedRole.getStatusCode(), HttpStatus.OK);
-        assertRolesEqual(roleDTO, responseEntityToDTO(savedRole, roleDTO.getClass()));
-    }
 
-    static void assertRolesEqual(RoleDTO roleDTO, RoleDTO expectedRoleDto) {
-        assertEquals(roleDTO.getName(), expectedRoleDto.getName());
-        assertEquals(roleDTO.getDescription(), expectedRoleDto.getDescription());
+    @Override
+    <T extends BaseDTO> void assertRolesEqual(T roleDTO, T expectedRoleDto) {
+        if (roleDTO instanceof RoleDTO && expectedRoleDto instanceof RoleDTO) {
+            assertEquals(((RoleDTO) roleDTO).getName(), ((RoleDTO) expectedRoleDto).getName());
+            assertEquals(((RoleDTO) roleDTO).getDescription(), ((RoleDTO) expectedRoleDto).getDescription());
+        }
     }
 
     @AfterEach

@@ -10,7 +10,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
 
-public class BaseTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public abstract class BaseTest {
     protected static final String BASE_URL = "http://localhost:9090";
     protected static final String SLASH = "/";
     protected static final Logger log = LoggerFactory.getLogger(BaseTest.class);
@@ -47,4 +49,12 @@ public class BaseTest {
     protected static <T extends BaseDTO> T responseEntityToDTO(ResponseEntity<String> responseEntity, Class<T> tClass) throws JsonProcessingException {
         return objectMapper.readValue(Objects.requireNonNull(responseEntity.getBody()), tClass);
     }
+
+    protected <T extends BaseDTO> void assertSuccessfulResponse(T dto, ResponseEntity<String> entity) throws JsonProcessingException {
+        assertEquals(entity.getStatusCode(), HttpStatus.OK);
+        assertRolesEqual(dto, responseEntityToDTO(entity, dto.getClass()));
+    }
+
+    abstract <T extends BaseDTO> void assertRolesEqual(T dto, T expectedDTO);
+
 }
