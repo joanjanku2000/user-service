@@ -1,5 +1,7 @@
-package com.onlinecv.userservice.base.exceptions;
+package com.onlinecv.userservice.base.exceptions.config;
 
+import com.onlinecv.userservice.base.exceptions.NotFoundException;
+import com.onlinecv.userservice.base.exceptions.model.ErrorFormat;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

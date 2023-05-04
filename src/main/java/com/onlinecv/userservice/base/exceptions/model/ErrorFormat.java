@@ -1,4 +1,4 @@
-package com.onlinecv.userservice.base.exceptions;
+package com.onlinecv.userservice.base.exceptions.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
