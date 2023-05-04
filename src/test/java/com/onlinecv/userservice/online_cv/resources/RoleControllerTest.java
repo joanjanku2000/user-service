@@ -1,18 +1,13 @@
-package com.onlinecv.userservice.resources;
+package com.onlinecv.userservice.online_cv.resources;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onlinecv.userservice.model.dto.RoleDTO;
-import com.onlinecv.userservice.model.entity.Role;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
+import com.onlinecv.userservice.online_cv.model.dto.RoleDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.client.RestTemplate;
@@ -20,8 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Objects;
 
 import static com.onlinecv.userservice.mapper.RoleMapperTest.getTestRole;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @TestPropertySource("/application-test.yml")
@@ -51,6 +45,6 @@ public class RoleControllerTest {
         ResponseEntity<String> savedRole = restTemplate.postForEntity(ROLE_URL, toRequest(roleDTO), String.class);
         log.info("Gotten response from server {} ", savedRole);
         assertEquals(savedRole.getStatusCode(), HttpStatus.OK);
-        assertTrue(Objects.requireNonNull(savedRole.getBody()).contains(roleDTO.getName()));
+        assertEquals(objectMapper.readValue(savedRole.getBody(), RoleDTO.class).getName(), roleDTO.getName());
     }
 }

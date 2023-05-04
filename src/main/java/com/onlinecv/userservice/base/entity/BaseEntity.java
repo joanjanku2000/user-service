@@ -3,12 +3,14 @@ package com.onlinecv.userservice.base.entity;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDateTime;
 
 @MappedSuperclass
 @EnableJpaAuditing
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
     public static final String DELETE_CLAUSE = "deleted=false";
     @Id
@@ -26,12 +28,12 @@ public class BaseEntity {
     @PrePersist
     private void dateAndDeleted() {
         this.deleted = false;
-        this.createdAt = LocalDateTime.now();
+   //     this.createdAt = LocalDateTime.now();
     }
 
     @PreUpdate
     private void dateLastModified() {
-        this.lastModified = LocalDateTime.now();
+        //this.lastModified = LocalDateTime.now();
     }
 
     public Long getId() {

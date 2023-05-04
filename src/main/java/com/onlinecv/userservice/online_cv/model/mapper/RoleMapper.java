@@ -1,8 +1,8 @@
-package com.onlinecv.userservice.model.mapper;
+package com.onlinecv.userservice.online_cv.model.mapper;
 
 import com.onlinecv.userservice.base.dto.BaseMapper;
-import com.onlinecv.userservice.model.dto.RoleDTO;
-import com.onlinecv.userservice.model.entity.Role;
+import com.onlinecv.userservice.online_cv.model.dto.RoleDTO;
+import com.onlinecv.userservice.online_cv.model.entity.Role;
 import org.mapstruct.Mapper;
 
 @Mapper(uses = BaseMapper.class)

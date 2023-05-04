@@ -1,7 +1,6 @@
-package com.onlinecv.userservice.model.entity;
+package com.onlinecv.userservice.online_cv.model.entity;
 
 import com.onlinecv.userservice.base.entity.BaseEntity;
-import com.onlinecv.userservice.model.dto.UserDataKeyDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;

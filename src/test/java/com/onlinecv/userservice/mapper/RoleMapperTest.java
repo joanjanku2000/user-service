@@ -1,12 +1,10 @@
 package com.onlinecv.userservice.mapper;
 
-import com.onlinecv.userservice.model.dto.RoleDTO;
-import com.onlinecv.userservice.model.entity.Role;
-import com.onlinecv.userservice.model.mapper.RoleMapper;
+import com.onlinecv.userservice.online_cv.model.dto.RoleDTO;
+import com.onlinecv.userservice.online_cv.model.entity.Role;
+import com.onlinecv.userservice.online_cv.model.mapper.RoleMapper;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-
-import java.util.Objects;
 
 import static java.util.Objects.isNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;

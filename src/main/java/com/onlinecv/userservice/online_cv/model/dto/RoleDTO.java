@@ -1,4 +1,4 @@
-package com.onlinecv.userservice.model.dto;
+package com.onlinecv.userservice.online_cv.model.dto;
 
 import com.onlinecv.userservice.base.dto.BaseDTO;
 

@@ -1,11 +1,10 @@
-package com.onlinecv.userservice.service.impl;
+package com.onlinecv.userservice.online_cv.service.impl;
 
-import com.onlinecv.userservice.model.dto.RoleDTO;
-import com.onlinecv.userservice.model.entity.Role;
-import com.onlinecv.userservice.model.mapper.RoleMapper;
-import com.onlinecv.userservice.repository.RoleRepository;
-import com.onlinecv.userservice.service.RoleService;
-import lombok.RequiredArgsConstructor;
+import com.onlinecv.userservice.online_cv.model.dto.RoleDTO;
+import com.onlinecv.userservice.online_cv.model.entity.Role;
+import com.onlinecv.userservice.online_cv.model.mapper.RoleMapper;
+import com.onlinecv.userservice.online_cv.repository.RoleRepository;
+import com.onlinecv.userservice.online_cv.service.RoleService;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

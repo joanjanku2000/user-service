@@ -1,8 +1,7 @@
-package com.onlinecv.userservice.resources;
+package com.onlinecv.userservice.online_cv.resources;
 
-import com.onlinecv.userservice.model.dto.RoleDTO;
-import com.onlinecv.userservice.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.onlinecv.userservice.online_cv.model.dto.RoleDTO;
+import com.onlinecv.userservice.online_cv.service.RoleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,8 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/role")
 public class RoleController {
 
-    @Autowired
-    private RoleService roleService;
+
+    private final RoleService roleService;
+
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
     @PostMapping
     public ResponseEntity<RoleDTO> save(@RequestBody RoleDTO roleDTO){
         return ResponseEntity.ok(roleService.save(roleDTO));

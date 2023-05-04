@@ -1,4 +1,4 @@
-package com.onlinecv.userservice.model.entity;
+package com.onlinecv.userservice.online_cv.model.entity;
 
 import com.onlinecv.userservice.base.entity.BaseEntity;
 import jakarta.persistence.Entity;
