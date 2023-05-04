@@ -30,7 +30,12 @@ public class RoleControllerTest extends BaseTest {
 
     private static void assertSuccessfulResponse(RoleDTO roleDTO, ResponseEntity<String> savedRole) throws JsonProcessingException {
         assertEquals(savedRole.getStatusCode(), HttpStatus.OK);
-        assertEquals(responseEntityToDTO(savedRole, roleDTO.getClass()).getName(), roleDTO.getName());
+        assertRolesEqual(roleDTO, responseEntityToDTO(savedRole, roleDTO.getClass()));
+    }
+
+    static void assertRolesEqual(RoleDTO roleDTO, RoleDTO expectedRoleDto) {
+        assertEquals(roleDTO.getName(), expectedRoleDto.getName());
+        assertEquals(roleDTO.getDescription(), expectedRoleDto.getDescription());
     }
 
     @AfterEach
@@ -89,5 +94,11 @@ public class RoleControllerTest extends BaseTest {
         assertThrows(RuntimeException.class, () -> put(ROLE_URL, createdRole));
     }
 
+    @Test
+    @DisplayName("Test - GET /role/{id} ")
+    void getRole_Pass() throws JsonProcessingException {
+        RoleDTO roleDTO = responseEntityToDTO(postRole(getTestRole()), RoleDTO.class);
+        assertSuccessfulResponse(roleDTO, get(ROLE_URL + SLASH + roleDTO.getId()));
+    }
 
 }

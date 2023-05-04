@@ -12,6 +12,7 @@ import java.util.Objects;
 
 public class BaseTest {
     protected static final String BASE_URL = "http://localhost:9090";
+    protected static final String SLASH = "/";
     protected static final Logger log = LoggerFactory.getLogger(BaseTest.class);
     protected static final RestTemplate restTemplate = new RestTemplate();
     protected static final ObjectMapper objectMapper = new ObjectMapper();
@@ -32,6 +33,11 @@ public class BaseTest {
 
     protected static <T extends BaseDTO> ResponseEntity<String> put(String url, T dto) throws JsonProcessingException {
         return restTemplate.exchange(url, HttpMethod.PUT, toRequest(dto), String.class);
+    }
+
+
+    protected static <T extends BaseDTO> ResponseEntity<String> get(String url) {
+        return restTemplate.getForEntity(url, String.class);
     }
 
     protected static <T extends BaseDTO> T responseEntityToDTO(ResponseEntity<String> responseEntity, Class<T> tClass) throws JsonProcessingException {
