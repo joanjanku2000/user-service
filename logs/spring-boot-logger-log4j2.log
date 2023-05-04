@@ -1,32 +1,31 @@
-2023-05-04 23:17:30,242 INFO o.s.b.StartupInfoLogger [main] Starting RoleControllerTest using Java 17.0.6 with PID 7315 (started by joanjanku in /Users/joanjanku/Documents/Online-Cv/user-service)
-2023-05-04 23:17:30,245 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.0.6, Spring v6.0.8
-2023-05-04 23:17:30,245 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
-2023-05-04 23:17:30,441 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-05-04 23:17:30,462 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 19 ms. Found 1 JPA repository interfaces.
-2023-05-04 23:17:30,689 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 9090 (http)
-2023-05-04 23:17:30,693 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-9090"]
-2023-05-04 23:17:30,693 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
-2023-05-04 23:17:30,694 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.8]
-2023-05-04 23:17:30,726 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
-2023-05-04 23:17:30,727 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 474 ms
-2023-05-04 23:17:30,744 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
-2023-05-04 23:17:30,831 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:user_cv user=SA
-2023-05-04 23:17:30,831 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
-2023-05-04 23:17:30,837 INFO o.s.b.a.h.H2ConsoleAutoConfiguration [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:user_cv'
-2023-05-04 23:17:30,916 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-05-04 23:17:30,939 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
-2023-05-04 23:17:31,037 INFO o.h.e.j.d.i.DialectFactoryImpl [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
-2023-05-04 23:17:31,351 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-05-04 23:17:31,355 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-05-04 23:17:31,482 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-05-04 23:17:31,637 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-9090"]
-2023-05-04 23:17:31,646 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 9090 (http) with context path ''
-2023-05-04 23:17:31,650 INFO o.s.b.StartupInfoLogger [main] Started RoleControllerTest in 1.545 seconds (process running for 2.333)
-2023-05-04 23:17:31,765 INFO o.a.j.l.DirectJDKLog [http-nio-9090-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-05-04 23:17:31,765 INFO o.s.w.s.FrameworkServlet [http-nio-9090-exec-1] Initializing Servlet 'dispatcherServlet'
-2023-05-04 23:17:31,766 INFO o.s.w.s.FrameworkServlet [http-nio-9090-exec-1] Completed initialization in 1 ms
-2023-05-04 23:17:31,951 INFO c.o.u.o.r.RoleControllerTest [main] Gotten response from server <200 OK OK,{"id":1,"name":"Test","description":"Description"},[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Thu, 04 May 2023 21:17:31 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]> 
-2023-05-04 23:17:31,961 ERROR o.a.j.l.DirectJDKLog [http-nio-9090-exec-2] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException] with root cause
+2023-05-05 00:48:50,786 INFO o.s.b.StartupInfoLogger [main] Starting RoleControllerTest using Java 17.0.6 with PID 8467 (started by joanjanku in /Users/joanjanku/Documents/Online-Cv/user-service)
+2023-05-05 00:48:50,789 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.0.6, Spring v6.0.8
+2023-05-05 00:48:50,790 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-05-05 00:48:51,013 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-05 00:48:51,058 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 41 ms. Found 1 JPA repository interfaces.
+2023-05-05 00:48:51,309 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 9090 (http)
+2023-05-05 00:48:51,313 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-9090"]
+2023-05-05 00:48:51,313 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2023-05-05 00:48:51,314 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-05-05 00:48:51,352 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2023-05-05 00:48:51,353 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 555 ms
+2023-05-05 00:48:51,371 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-05-05 00:48:51,455 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:user_cv user=SA
+2023-05-05 00:48:51,456 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-05-05 00:48:51,461 INFO o.s.b.a.h.H2ConsoleAutoConfiguration [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:user_cv'
+2023-05-05 00:48:51,547 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-05 00:48:51,566 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-05-05 00:48:51,677 INFO o.h.e.j.d.i.DialectFactoryImpl [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-05-05 00:48:51,969 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-05 00:48:51,972 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-05 00:48:52,091 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-05 00:48:52,237 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-9090"]
+2023-05-05 00:48:52,245 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 9090 (http) with context path ''
+2023-05-05 00:48:52,249 INFO o.s.b.StartupInfoLogger [main] Started RoleControllerTest in 1.611 seconds (process running for 2.308)
+2023-05-05 00:48:52,351 INFO o.a.j.l.DirectJDKLog [http-nio-9090-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-05 00:48:52,351 INFO o.s.w.s.FrameworkServlet [http-nio-9090-exec-1] Initializing Servlet 'dispatcherServlet'
+2023-05-05 00:48:52,352 INFO o.s.w.s.FrameworkServlet [http-nio-9090-exec-1] Completed initialization in 1 ms
+2023-05-05 00:48:52,523 ERROR o.a.j.l.DirectJDKLog [http-nio-9090-exec-2] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException] with root cause
 java.lang.RuntimeException: null
 	at com.onlinecv.userservice.online_cv.validations.ValidationAspect.validate(ValidationAspect.java:37) ~[classes/:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
@@ -42,8 +41,8 @@ java.lang.RuntimeException: null
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.0.8.jar:6.0.8]
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[spring-aop-6.0.8.jar:6.0.8]
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:702) ~[spring-aop-6.0.8.jar:6.0.8]
-	at com.onlinecv.userservice.online_cv.service.impl.RoleServiceImpl$$SpringCGLIB$$0.save(<generated>) ~[classes/:?]
-	at com.onlinecv.userservice.online_cv.resources.RoleController.save(RoleController.java:24) ~[classes/:?]
+	at com.onlinecv.userservice.online_cv.service.impl.RoleServiceImpl$$SpringCGLIB$$0.update(<generated>) ~[classes/:?]
+	at com.onlinecv.userservice.online_cv.resources.RoleController.update(RoleController.java:27) ~[classes/:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
 	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
@@ -57,8 +56,8 @@ java.lang.RuntimeException: null
 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081) ~[spring-webmvc-6.0.8.jar:6.0.8]
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974) ~[spring-webmvc-6.0.8.jar:6.0.8]
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011) ~[spring-webmvc-6.0.8.jar:6.0.8]
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.0.8.jar:6.0.8]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.8.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.doPut(FrameworkServlet.java:925) ~[spring-webmvc-6.0.8.jar:6.0.8]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:593) ~[tomcat-embed-core-10.1.8.jar:6.0]
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.0.8.jar:6.0.8]
 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.8.jar:6.0]
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.8.jar:10.1.8]
@@ -94,8 +93,6 @@ java.lang.RuntimeException: null
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.8.jar:10.1.8]
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.8.jar:10.1.8]
 	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-2023-05-04 23:17:31,991 INFO c.o.u.o.r.RoleControllerTest [main] Gotten response from server <200 OK OK,{"id":2,"name":"Test","description":"Description"},[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Thu, 04 May 2023 21:17:31 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]> 
-2023-05-04 23:17:31,998 INFO c.o.u.o.r.RoleControllerTest [main] Gotten response from server <200 OK OK,{"id":3,"name":"Test","description":"Description"},[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Thu, 04 May 2023 21:17:31 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]> 
-2023-05-04 23:17:32,023 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-05-04 23:17:32,025 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
-2023-05-04 23:17:32,027 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-05-05 00:48:52,556 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-05 00:48:52,557 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-05-05 00:48:52,559 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
