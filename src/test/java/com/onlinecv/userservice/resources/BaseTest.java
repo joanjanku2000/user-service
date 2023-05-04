@@ -5,11 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onlinecv.userservice.base.dto.BaseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Objects;
 
 public class BaseTest {
     protected static final String BASE_URL = "http://localhost:9090";
@@ -27,7 +26,15 @@ public class BaseTest {
         return objectMapper.writeValueAsString(dto);
     }
 
-    protected static  <T extends BaseDTO> ResponseEntity<String> post(String url, T dto) throws JsonProcessingException {
+    protected static <T extends BaseDTO> ResponseEntity<String> post(String url, T dto) throws JsonProcessingException {
         return restTemplate.postForEntity(url, toRequest(dto), String.class);
+    }
+
+    protected static <T extends BaseDTO> ResponseEntity<String> put(String url, T dto) throws JsonProcessingException {
+        return restTemplate.exchange(url, HttpMethod.PUT, toRequest(dto), String.class);
+    }
+
+    protected static <T extends BaseDTO> T responseEntityToDTO(ResponseEntity<String> responseEntity, Class<T> tClass) throws JsonProcessingException {
+        return objectMapper.readValue(Objects.requireNonNull(responseEntity.getBody()), tClass);
     }
 }

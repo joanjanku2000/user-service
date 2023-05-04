@@ -3,12 +3,15 @@ package com.onlinecv.userservice.resources;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.onlinecv.userservice.online_cv.model.dto.RoleDTO;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.time.LocalDateTime;
 
 import static com.onlinecv.userservice.mapper.RoleMapperTest.getTestRole;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,7 +30,12 @@ public class RoleControllerTest extends BaseTest {
 
     private static void assertSuccessfulResponse(RoleDTO roleDTO, ResponseEntity<String> savedRole) throws JsonProcessingException {
         assertEquals(savedRole.getStatusCode(), HttpStatus.OK);
-        assertEquals(objectMapper.readValue(savedRole.getBody(), RoleDTO.class).getName(), roleDTO.getName());
+        assertEquals(responseEntityToDTO(savedRole, roleDTO.getClass()).getName(), roleDTO.getName());
+    }
+
+    @AfterEach
+    protected void deleteDB() {
+        roleRepository.deleteAll();
     }
 
     private ResponseEntity<String> postRole(RoleDTO roleDTO) throws JsonProcessingException {
@@ -41,7 +49,6 @@ public class RoleControllerTest extends BaseTest {
         ResponseEntity<String> savedRole = postRole(roleDTO);
         log.info("Gotten response from server {} ", savedRole);
         assertSuccessfulResponse(roleDTO, savedRole);
-        roleRepository.deleteAll();
     }
 
     @Test
@@ -52,8 +59,6 @@ public class RoleControllerTest extends BaseTest {
         log.info("Gotten response from server {} ", savedRole);
         assertSuccessfulResponse(roleDTO, savedRole);
         assertThrows(RuntimeException.class, () -> postRole(roleDTO));
-        roleRepository.deleteAll();
-
     }
 
     @Test
@@ -65,6 +70,24 @@ public class RoleControllerTest extends BaseTest {
         assertSuccessfulResponse(roleDTO, savedRole);
         roleDTO.setName("Another One");
         assertDoesNotThrow(() -> postRole(roleDTO));
-        roleRepository.deleteAll();
     }
+
+    @Test
+    @DisplayName("Test - PUT /role")
+    void putRole_Pass() throws JsonProcessingException {
+        RoleDTO createdRole = responseEntityToDTO(postRole(getTestRole()), RoleDTO.class);
+        // modify name
+        createdRole.setName(createdRole.getName().concat(LocalDateTime.now().toString()));
+        assertSuccessfulResponse(createdRole, put(ROLE_URL, createdRole));
+    }
+
+    @Test
+    @DisplayName("Test - PUT /role - Must fail - Non Unique")
+    void putRole_Fail() throws JsonProcessingException {
+        RoleDTO createdRole = responseEntityToDTO(postRole(getTestRole()), RoleDTO.class);
+        // modify name
+        assertThrows(RuntimeException.class, () -> put(ROLE_URL, createdRole));
+    }
+
+
 }
