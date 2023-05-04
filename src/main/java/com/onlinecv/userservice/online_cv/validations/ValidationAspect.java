@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Objects;
 
 @Aspect
 @Component
@@ -22,10 +23,10 @@ public class ValidationAspect {
     @Autowired
     private BaseRepository baseRepository;
 
-    @Around("@annotation(com.onlinecv.userservice.online_cv.validation.Validate)")
+    @Around("@annotation(com.onlinecv.userservice.online_cv.validations.Validate)")
     public Object validate(ProceedingJoinPoint proceedingJoinPoint) throws IllegalAccessException {
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
-        Validate validate = signature.getMethod().getDeclaredAnnotation(Validate.class);
+        Validate validate = Objects.requireNonNull(signature.getMethod().getAnnotation(Validate.class));
         String fieldName = validate.field();
         Class<?> entity = validate.entity();
         String entityClassName = entity.getSimpleName();

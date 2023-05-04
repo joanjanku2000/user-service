@@ -20,4 +20,6 @@ public class UserData extends BaseEntity {
     private User user;
     @ManyToOne
     private UserDataKey userDataKey;
+
+    private String keyValue;
 }

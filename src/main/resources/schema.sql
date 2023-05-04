@@ -16,20 +16,20 @@ CREATE TABLE public."user"
 CREATE TABLE IF NOT EXISTS public.user_data_key
 (
     id         serial                                         NOT NULL,
-    key_name   character varying COLLATE pg_catalog."default" NOT NULL,
+    key_name   character varying(255)                              NOT NULL,
     deleted    boolean                                        NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE public.user_data
+CREATE TABLE IF NOT EXISTS public.user_data
 (
     id         serial                 NOT NULL,
     key_value      character varying(255) NOT NULL,
-    deleted    boolean,
+    deleted    boolean  NOT NULL,
     created_at timestamp without time zone,
-    updted_at  timestamp without time zone,
+    updated_at  timestamp without time zone,
     PRIMARY KEY (id)
 );
 
@@ -50,33 +50,23 @@ CREATE TABLE public.user_role
     deleted boolean,
     CONSTRAINT pk PRIMARY KEY (id),
     CONSTRAINT user_fk FOREIGN KEY (user_id)
-        REFERENCES public."user" (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID
+        REFERENCES public."user" (id)
 );
 
-ALTER TABLE IF EXISTS public.user_data
-    RENAME updted_at TO updated_at;
 
 ALTER TABLE IF EXISTS public.user_data
     ADD COLUMN user_id integer NOT NULL;
 
 ALTER TABLE IF EXISTS public.user_data
     ADD COLUMN data_key_id integer NOT NULL;
+
 ALTER TABLE IF EXISTS public.user_data
     ADD CONSTRAINT uid_fk FOREIGN KEY (user_id)
-        REFERENCES public."user" (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID;
+        REFERENCES public."user" (id) ;
 
 ALTER TABLE IF EXISTS public.user_data
     ADD CONSTRAINT dk_fk FOREIGN KEY (data_key_id)
-        REFERENCES public.user_data_key (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID;
+        REFERENCES public.user_data_key (id);
 
 ALTER table public.role
     add column last_modified timestamp;

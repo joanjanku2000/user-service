@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestPropertySource("/application-test.yml")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class RoleControllerTest {
-    private static final String BASE_URL = "http://localhost:8080";
+    private static final String BASE_URL = "http://localhost:9090";
     private static final String PATH = "/role";
     private static final Logger log = LoggerFactory.getLogger(RoleControllerTest.class);
     private static final RestTemplate restTemplate = new RestTemplate();

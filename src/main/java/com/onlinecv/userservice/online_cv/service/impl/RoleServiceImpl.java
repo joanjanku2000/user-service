@@ -22,7 +22,7 @@ public class RoleServiceImpl implements RoleService {
         this.roleRepository = roleRepository;
     }
 
-    @Validate(value = UNIQUE, field = "name", argumentPos = 0, entity = Role.class)
+   // @Validate(value = UNIQUE, field = "name", entity = Role.class)
     @Override
     public RoleDTO save(RoleDTO dto) {
         Role role = roleMapper.roleDTOToRole(dto);
