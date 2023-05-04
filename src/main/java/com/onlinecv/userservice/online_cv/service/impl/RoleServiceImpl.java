@@ -5,16 +5,24 @@ import com.onlinecv.userservice.online_cv.model.entity.Role;
 import com.onlinecv.userservice.online_cv.model.mapper.RoleMapper;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
 import com.onlinecv.userservice.online_cv.service.RoleService;
+import com.onlinecv.userservice.online_cv.validations.Validate;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.onlinecv.userservice.online_cv.validations.Validation.UNIQUE;
+import static java.util.Objects.requireNonNull;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-    @Autowired
-    private RoleRepository roleRepository;
+
+    private final RoleRepository roleRepository;
     private final RoleMapper roleMapper = Mappers.getMapper(RoleMapper.class);
 
+    public RoleServiceImpl(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
+    @Validate(value = UNIQUE, field = "name", argumentPos = 0, entity = Role.class)
     @Override
     public RoleDTO save(RoleDTO dto) {
         Role role = roleMapper.roleDTOToRole(dto);
@@ -23,7 +31,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleDTO update(RoleDTO dto) {
-        return null;
+        Role role = roleMapper.toEntityForUpdate(dto, roleRepository.findById(requireNonNull(dto.getId())).orElseThrow(() -> new RuntimeException("Not found")));
+        return roleMapper.roleToRoleDTO(roleRepository.save(role));
     }
 
     @Override

@@ -8,5 +8,12 @@ import org.mapstruct.Mapper;
 @Mapper(uses = BaseMapper.class)
 public interface RoleMapper {
     Role roleDTOToRole(RoleDTO roleDTO);
+
     RoleDTO roleToRoleDTO(Role role);
+
+    default Role toEntityForUpdate(RoleDTO roleDTO, Role role) {
+        role.setDescription(roleDTO.getDescription());
+        role.setName(roleDTO.getName());
+        return role;
+    }
 }
