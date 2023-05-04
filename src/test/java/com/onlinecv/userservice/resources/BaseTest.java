@@ -40,6 +40,10 @@ public class BaseTest {
         return restTemplate.getForEntity(url, String.class);
     }
 
+    protected static <T extends BaseDTO> ResponseEntity<String> delete(String url) {
+        return restTemplate.exchange(url, HttpMethod.DELETE, HttpEntity.EMPTY, String.class);
+    }
+
     protected static <T extends BaseDTO> T responseEntityToDTO(ResponseEntity<String> responseEntity, Class<T> tClass) throws JsonProcessingException {
         return objectMapper.readValue(Objects.requireNonNull(responseEntity.getBody()), tClass);
     }

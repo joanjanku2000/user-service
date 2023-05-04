@@ -33,7 +33,7 @@ public class RoleController implements BaseController<RoleDTO> {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(Long id) {
+    public void delete(@PathVariable Long id) {
         roleService.delete(id);
     }
 }

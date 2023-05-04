@@ -12,9 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static com.onlinecv.userservice.mapper.RoleMapperTest.getTestRole;
 import static org.junit.jupiter.api.Assertions.*;
@@ -107,13 +107,22 @@ public class RoleControllerTest extends BaseTest {
     @Test
     @DisplayName("Test - GET /role/{id} - FAIL")
     void getRole_Fail() throws JsonProcessingException {
-       try {
-           get(ROLE_URL + SLASH + RandomUtils.nextInt());
-           assertEquals(1,2);
-       } catch (HttpClientErrorException e) {
-            log.info("Message {}",e.getMessage());
-            assertEquals(e.getStatusCode(),HttpStatus.NOT_FOUND);
-       }
+        try {
+            get(ROLE_URL + SLASH + RandomUtils.nextInt());
+            assertEquals(1, 2);
+        } catch (HttpClientErrorException e) {
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Test
+    @DisplayName("Test - DELETE /role/{id} ")
+    void deleteRole_Pass() throws JsonProcessingException {
+        RoleDTO roleDTO = responseEntityToDTO(postRole(getTestRole()), RoleDTO.class);
+        ResponseEntity<String> result = delete(ROLE_URL + SLASH + roleDTO.getId());
+        assertEquals(result.getStatusCode(), HttpStatus.OK);
+        assertEquals(roleRepository.findById(roleDTO.getId()), Optional.empty());
     }
 
 }
