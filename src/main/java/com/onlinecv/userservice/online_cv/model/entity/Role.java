@@ -9,7 +9,7 @@ import static com.onlinecv.userservice.base.entity.BaseEntity.DELETE_CLAUSE;
 
 @Entity
 @Where(clause = DELETE_CLAUSE)
-@SQLDelete(sql = "UPDATE Role r SET r.deleted = false where r.id = ?")
+@SQLDelete(sql = "UPDATE Role r SET r.deleted = true where r.id = ?")
 public class Role extends BaseEntity {
     private String name;
     private String description;

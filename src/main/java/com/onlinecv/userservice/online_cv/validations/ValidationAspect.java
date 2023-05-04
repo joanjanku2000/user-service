@@ -24,7 +24,7 @@ public class ValidationAspect {
     private BaseRepository baseRepository;
 
     @Around("@annotation(com.onlinecv.userservice.online_cv.validations.Validate)")
-    public Object validate(ProceedingJoinPoint proceedingJoinPoint) throws IllegalAccessException {
+    public Object validate(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
         Validate validate = Objects.requireNonNull(signature.getMethod().getAnnotation(Validate.class));
         String fieldName = validate.field();
@@ -33,9 +33,11 @@ public class ValidationAspect {
         Object o = proceedingJoinPoint.getArgs()[validate.argumentPos()];
 
         if (validate.value().equals(Validation.UNIQUE)) {
-            baseRepository.findBy(entityClassName, fieldName, readValue(o, fieldName));
+            if (baseRepository.findBy(entityClassName, fieldName, readValue(o, fieldName)).size() > 0){
+                throw new RuntimeException();
+            }
         }
-        return null;
+        return proceedingJoinPoint.proceed();
     }
 
     private Object readValue(Object o, String fieldName) throws IllegalAccessException {

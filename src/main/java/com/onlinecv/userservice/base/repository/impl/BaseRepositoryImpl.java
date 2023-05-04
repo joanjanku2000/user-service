@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class BaseRepositoryImpl implements BaseRepository {
-    private static final String FIND_QUERY = "SELECT e from ENTITY e where e.COLUMN = ?1";
+    private static final String FIND_QUERY = "SELECT e from ENTITY e where e.COLUMN = ?1 ";
     private static final String COLUMN = "COLUMN";
     private static final String ENTITY = "ENTITY";
     @PersistenceContext
