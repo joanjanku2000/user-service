@@ -3,6 +3,7 @@ package com.onlinecv.userservice.resources;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.onlinecv.userservice.online_cv.model.dto.RoleDTO;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 
 import java.time.LocalDateTime;
 
@@ -99,6 +102,18 @@ public class RoleControllerTest extends BaseTest {
     void getRole_Pass() throws JsonProcessingException {
         RoleDTO roleDTO = responseEntityToDTO(postRole(getTestRole()), RoleDTO.class);
         assertSuccessfulResponse(roleDTO, get(ROLE_URL + SLASH + roleDTO.getId()));
+    }
+
+    @Test
+    @DisplayName("Test - GET /role/{id} - FAIL")
+    void getRole_Fail() throws JsonProcessingException {
+       try {
+           get(ROLE_URL + SLASH + RandomUtils.nextInt());
+           assertEquals(1,2);
+       } catch (HttpClientErrorException e) {
+            log.info("Message {}",e.getMessage());
+            assertEquals(e.getStatusCode(),HttpStatus.NOT_FOUND);
+       }
     }
 
 }
