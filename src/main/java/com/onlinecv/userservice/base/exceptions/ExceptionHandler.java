@@ -17,9 +17,9 @@ public class ExceptionHandler {
     public ErrorFormat handleNotFoundEexception(HttpServletRequest httpServletRequest, NotFoundException e) {
         ErrorFormat errorFormat = null;
         try {
-            errorFormat = ErrorFormat.builder().message(e.getMessage()).time(LocalDateTime.now()).failingRequest(httpServletRequest.getRequestURI()).failingPayload(extractBytesToString(httpServletRequest.getInputStream().readAllBytes())).build();
+            errorFormat = new ErrorFormat(e.getMessage(), LocalDateTime.now(), httpServletRequest.getRequestURI(), extractBytesToString(httpServletRequest.getInputStream().readAllBytes()));
         } catch (IOException ex) {
-            errorFormat = ErrorFormat.builder().message(e.getMessage()).time(LocalDateTime.now()).failingRequest(httpServletRequest.getRequestURI()).build();
+            errorFormat = new ErrorFormat(e.getMessage(), LocalDateTime.now(), httpServletRequest.getRequestURI());
         }
         return errorFormat;
     }
