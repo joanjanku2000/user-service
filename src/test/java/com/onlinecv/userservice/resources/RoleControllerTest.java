@@ -25,6 +25,11 @@ public class RoleControllerTest extends BaseTest {
         this.roleRepository = roleRepository;
     }
 
+    private static void assertSuccessfulResponse(RoleDTO roleDTO, ResponseEntity<String> savedRole) throws JsonProcessingException {
+        assertEquals(savedRole.getStatusCode(), HttpStatus.OK);
+        assertEquals(objectMapper.readValue(savedRole.getBody(), RoleDTO.class).getName(), roleDTO.getName());
+    }
+
     private ResponseEntity<String> postRole(RoleDTO roleDTO) throws JsonProcessingException {
         return post(ROLE_URL, roleDTO);
     }
@@ -35,8 +40,7 @@ public class RoleControllerTest extends BaseTest {
         RoleDTO roleDTO = getTestRole();
         ResponseEntity<String> savedRole = postRole(roleDTO);
         log.info("Gotten response from server {} ", savedRole);
-        assertEquals(savedRole.getStatusCode(), HttpStatus.OK);
-        assertEquals(objectMapper.readValue(savedRole.getBody(), RoleDTO.class).getName(), roleDTO.getName());
+        assertSuccessfulResponse(roleDTO, savedRole);
         roleRepository.deleteAll();
     }
 
@@ -46,8 +50,7 @@ public class RoleControllerTest extends BaseTest {
         RoleDTO roleDTO = getTestRole();
         ResponseEntity<String> savedRole = postRole(roleDTO);
         log.info("Gotten response from server {} ", savedRole);
-        assertEquals(savedRole.getStatusCode(), HttpStatus.OK);
-        assertEquals(objectMapper.readValue(savedRole.getBody(), RoleDTO.class).getName(), roleDTO.getName());
+        assertSuccessfulResponse(roleDTO, savedRole);
         assertThrows(RuntimeException.class, () -> postRole(roleDTO));
         roleRepository.deleteAll();
 
@@ -59,8 +62,7 @@ public class RoleControllerTest extends BaseTest {
         RoleDTO roleDTO = getTestRole();
         ResponseEntity<String> savedRole = postRole(roleDTO);
         log.info("Gotten response from server {} ", savedRole);
-        assertEquals(savedRole.getStatusCode(), HttpStatus.OK);
-        assertEquals(objectMapper.readValue(savedRole.getBody(), RoleDTO.class).getName(), roleDTO.getName());
+        assertSuccessfulResponse(roleDTO, savedRole);
         roleDTO.setName("Another One");
         assertDoesNotThrow(() -> postRole(roleDTO));
         roleRepository.deleteAll();
