@@ -1,4 +1,4 @@
-CREATE TABLE public."user"
+CREATE TABLE IF NOT EXISTS public."user"
 (
     id            serial                      NOT NULL,
     username      character varying(25)       NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS public.user_data
     PRIMARY KEY (id)
 );
 
-CREATE TABLE public.role
+CREATE TABLE  IF NOT EXISTS public.role
 (
     id          serial                 NOT NULL,
     name        character varying(100) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE public.role
     PRIMARY KEY (id)
 );
 
-CREATE TABLE public.user_role
+CREATE TABLE  IF NOT EXISTS public.user_role
 (
     id      serial  NOT NULL,
     user_id integer NOT NULL,
