@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS public.user_data_key
     key_name   character varying(255)                              NOT NULL,
     deleted    boolean                                        NOT NULL,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    last_modified timestamp without time zone,
     PRIMARY KEY (id)
 );
 
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS public.user_data
     key_value      character varying(255) NOT NULL,
     deleted    boolean  NOT NULL,
     created_at timestamp without time zone,
-    updated_at  timestamp without time zone,
+    last_modified  timestamp without time zone,
     PRIMARY KEY (id)
 );
 
