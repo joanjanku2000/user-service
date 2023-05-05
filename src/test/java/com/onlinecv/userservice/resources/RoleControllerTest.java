@@ -108,7 +108,7 @@ public class RoleControllerTest extends BaseTest {
     void getRole_Fail() throws JsonProcessingException {
         try {
             get(ROLE_URL + SLASH + RandomUtils.nextInt());
-            assertEquals(1, 2);
+            assertEquals(1, 2);  // if request is successful , test must fail
         } catch (HttpClientErrorException e) {
             log.info("Message {}", e.getMessage());
             assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
