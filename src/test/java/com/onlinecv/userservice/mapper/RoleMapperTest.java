@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RoleMapperTest {
 
-    private static final String TEST = "Test";
+    public static final String TEST = "Test";
     private static final String DESCRIPTION = "Description";
     private static RoleDTO roleDTO;
 
