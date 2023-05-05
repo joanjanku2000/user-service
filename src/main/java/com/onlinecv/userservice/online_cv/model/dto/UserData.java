@@ -6,7 +6,6 @@ import com.onlinecv.userservice.base.dto.BaseDTO;
 public class UserData extends BaseDTO {
     private UserDTO userDTO;
     private UserDataKeyDTO userDataKey;
-
     public UserDTO getUserDTO() {
         return userDTO;
     }

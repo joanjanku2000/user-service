@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/role")
 public class RoleController implements BaseController<RoleDTO> {
 
-
     private final RoleService roleService;
 
     public RoleController(RoleService roleService) {

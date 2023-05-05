@@ -6,7 +6,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -17,11 +16,12 @@ import java.util.Objects;
 @Component
 public class ValidationAspect {
 
-    private static final String REPOSITORY = "Repository";
+    private final BaseRepository baseRepository;
+
     @Autowired
-    private ApplicationContext applicationContext;
-    @Autowired
-    private BaseRepository baseRepository;
+    public ValidationAspect(BaseRepository baseRepository) {
+        this.baseRepository = baseRepository;
+    }
 
     @Around("@annotation(com.onlinecv.userservice.online_cv.validations.Validate)")
     public Object validate(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
@@ -41,9 +41,8 @@ public class ValidationAspect {
     }
 
     private Object readValue(Object o, String fieldName) throws IllegalAccessException {
-        Field f = Arrays.stream(o.getClass().getDeclaredFields()).filter(t -> t.getName().equals(fieldName)).findFirst().orElse(null);
+        Field f = Objects.requireNonNull(Arrays.stream(o.getClass().getDeclaredFields()).filter(t -> t.getName().equals(fieldName)).findFirst().orElse(null));
         f.setAccessible(true);
-        Object s = f.get(o);
-        return s;
+        return f.get(o);
     }
 }
