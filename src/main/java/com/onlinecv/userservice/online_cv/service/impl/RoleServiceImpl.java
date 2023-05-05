@@ -10,7 +10,7 @@ import com.onlinecv.userservice.online_cv.validations.Validate;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
-import static com.onlinecv.userservice.base.exceptions.constants.NotFoundMessage.ROLE_NOT_FOUND;
+import static com.onlinecv.userservice.online_cv.constants.NotFoundExceptionMessages.ROLE_NOT_FOUND;
 import static com.onlinecv.userservice.online_cv.validations.Validation.UNIQUE;
 import static java.util.Objects.requireNonNull;
 

@@ -10,9 +10,7 @@ import org.hibernate.annotations.Where;
 
 import static com.onlinecv.userservice.base.entity.BaseEntity.DELETE_CLAUSE;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
-@Data
 @Where(clause = DELETE_CLAUSE)
 @SQLDelete(sql = "UPDATE UserRole u SET u.true = false where u.id = ?")
 public class UserRole extends BaseEntity {
@@ -20,4 +18,20 @@ public class UserRole extends BaseEntity {
     private User user;
     @ManyToOne
     private Role role;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
