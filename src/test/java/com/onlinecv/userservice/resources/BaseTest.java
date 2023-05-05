@@ -50,7 +50,7 @@ public abstract class BaseTest {
         return objectMapper.readValue(Objects.requireNonNull(responseEntity.getBody()), tClass);
     }
 
-    protected <T extends BaseDTO> void assertSuccessfulResponse(T dto, ResponseEntity<String> entity) throws JsonProcessingException {
+    protected <T extends BaseDTO> void assertSuccessfulAndCorrectResponse(T dto, ResponseEntity<String> entity) throws JsonProcessingException {
         assertEquals(entity.getStatusCode(), HttpStatus.OK);
         assertRolesEqual(dto, responseEntityToDTO(entity, dto.getClass()));
     }

@@ -56,7 +56,7 @@ public class RoleControllerTest extends BaseTest {
         RoleDTO roleDTO = getTestRole();
         ResponseEntity<String> savedRole = postRole(roleDTO);
         log.info("Gotten response from server {} ", savedRole);
-        assertSuccessfulResponse(roleDTO, savedRole);
+        assertSuccessfulAndCorrectResponse(roleDTO, savedRole);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class RoleControllerTest extends BaseTest {
         RoleDTO roleDTO = getTestRole();
         ResponseEntity<String> savedRole = postRole(roleDTO);
         log.info("Gotten response from server {} ", savedRole);
-        assertSuccessfulResponse(roleDTO, savedRole);
+        assertSuccessfulAndCorrectResponse(roleDTO, savedRole);
         assertThrows(RuntimeException.class, () -> postRole(roleDTO));
     }
 
@@ -75,7 +75,7 @@ public class RoleControllerTest extends BaseTest {
         RoleDTO roleDTO = getTestRole();
         ResponseEntity<String> savedRole = postRole(roleDTO);
         log.info("Gotten response from server {} ", savedRole);
-        assertSuccessfulResponse(roleDTO, savedRole);
+        assertSuccessfulAndCorrectResponse(roleDTO, savedRole);
         roleDTO.setName("Another One");
         assertDoesNotThrow(() -> postRole(roleDTO));
     }
@@ -86,7 +86,7 @@ public class RoleControllerTest extends BaseTest {
         RoleDTO createdRole = responseEntityToDTO(postRole(getTestRole()), RoleDTO.class);
         // modify name
         createdRole.setName(createdRole.getName().concat(LocalDateTime.now().toString()));
-        assertSuccessfulResponse(createdRole, put(ROLE_URL, createdRole));
+        assertSuccessfulAndCorrectResponse(createdRole, put(ROLE_URL, createdRole));
     }
 
     @Test
@@ -100,7 +100,7 @@ public class RoleControllerTest extends BaseTest {
     @DisplayName("Test - GET /role/{id} ")
     void getRole_Pass() throws JsonProcessingException {
         RoleDTO roleDTO = responseEntityToDTO(postRole(getTestRole()), RoleDTO.class);
-        assertSuccessfulResponse(roleDTO, get(ROLE_URL + SLASH + roleDTO.getId()));
+        assertSuccessfulAndCorrectResponse(roleDTO, get(ROLE_URL + SLASH + roleDTO.getId()));
     }
 
     @Test
