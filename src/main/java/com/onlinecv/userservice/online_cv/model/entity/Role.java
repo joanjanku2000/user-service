@@ -30,8 +30,4 @@ public class Role extends BaseEntity {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Role{" + "name='" + name + '\'' + ", description='" + description + '\'' + '}';
-    }
 }

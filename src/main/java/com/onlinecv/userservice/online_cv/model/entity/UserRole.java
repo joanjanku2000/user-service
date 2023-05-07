@@ -34,11 +34,5 @@ public class UserRole extends BaseEntity {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "UserRole{" +
-                "user=" + user +
-                ", role=" + role + " Deleted " + super.getDeleted() +
-                '}';
-    }
+
 }
