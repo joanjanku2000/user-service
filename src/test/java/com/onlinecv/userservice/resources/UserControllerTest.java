@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -181,6 +182,29 @@ public class UserControllerTest extends BaseTest {
 
         assertEquals(Optional.empty(),userRepository.findById(userId));
         assertEquals(0,userRoleRepository.findAllByUserIdAndDeletedFalse(userId).size());
+    }
+    private static final String USERNAME = "username";
+    @Test
+    void getUserByUsername() throws JsonProcessingException {
+        UserDTO userDTO = getTestUser();
+        ResponseEntity<String> savedUser = postUser(userDTO);
+        log.info("Gotten response from server {}", savedUser);
+        assertSuccessfulAndCorrectResponse(userDTO, savedUser);
+        ResponseEntity<String> gottenUser = get(USER_URL + SLASH + USERNAME + SLASH + responseEntityToDTO(savedUser, UserDTO.class).getUserName());
+        assertSuccessfulAndCorrectResponse(responseEntityToDTO(savedUser, UserDTO.class), gottenUser);
+    }
+
+
+    @Test
+    void getUserByUsername_Fail() throws JsonProcessingException {
+        try {
+            get(USER_URL + SLASH + USERNAME + SLASH + USERNAME + LocalDateTime.now().toString());
+            assertEquals(1, 2);  // if request is successful , test must fail
+        } catch (HttpClientErrorException e) {
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
+        }
+
     }
 
     private ResponseEntity<String> postUser(UserDTO userDTO) throws JsonProcessingException {

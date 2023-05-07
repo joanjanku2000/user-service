@@ -35,4 +35,9 @@ public class UserController implements BaseController<UserDTO> {
     public void delete(@PathVariable Long id) {
         userService.delete(id);
     }
+
+    @GetMapping("/username/{username}")
+    public ResponseEntity<UserDTO> findByUsername(@PathVariable("username") String username) {
+        return ResponseEntity.ok(userService.findUserByUsername(username));
+    }
 }

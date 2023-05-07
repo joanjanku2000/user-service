@@ -33,13 +33,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private static final String USERNAME = "username";
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final UserRoleRepository userRoleRepository;
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.userRoleRepository = userRoleRepository;
     }
 
     @Validations(validations = {@Validate(validation = Validation.UNIQUE, field = "userName", entity = AppUser.class), @Validate(validation = Validation.UNIQUE, field = "email", entity = AppUser.class)})
@@ -82,5 +80,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUserName(username).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND_BY_USERNAME, USERNAME, username)));
+    }
+
+    @Override
+    public UserDTO findUserByUsername(String username) {
+        return userMapper.toDTO((AppUser) loadUserByUsername(username));
     }
 }
