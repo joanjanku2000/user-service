@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.roleRepository = roleRepository;
     }
 
-    @Validations(validations = @Validate(validation = Validation.UNIQUE, field = "username", entity = User.class))
+    @Validations(validations = {@Validate(validation = Validation.UNIQUE, field = "username", entity = User.class), @Validate(validation = Validation.UNIQUE, field = "email", entity = User.class)})
     @Override
     public UserDTO save(UserDTO dto) {
         User user = userMapper.toEntity(dto);
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRole;
     }
 
-    @Validations(validations = @Validate(validation = Validation.UNIQUE, field = "username", entity = User.class))
+    @Validations(validations = {@Validate(validation = Validation.UNIQUE, field = "username", entity = User.class), @Validate(validation = Validation.UNIQUE, field = "email", entity = User.class)})
     @Override
     public UserDTO update(UserDTO dto) {
         User user = userRepository.findById(dto.getId()).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND, dto.getId())));
