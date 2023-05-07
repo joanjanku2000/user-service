@@ -18,8 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.onlinecv.userservice.online_cv.constants.NotFoundExceptionMessages.ROLE_NOT_FOUND;
-import static com.onlinecv.userservice.online_cv.constants.NotFoundExceptionMessages.USER_NOT_FOUND;
+import static com.onlinecv.userservice.online_cv.constants.NotFoundExceptionMessages.*;
 import static java.util.Objects.requireNonNull;
 
 @Service
@@ -51,21 +50,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDTO update(UserDTO dto) {
-        return null;
+        User user = userRepository.findById(dto.getId()).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND, dto.getId())));
+        return userMapper.toDTO(userRepository.save(userMapper.toEntityForUpdate(user, dto)));
     }
 
     @Override
     public UserDTO findById(Long id) {
-        return null;
+        return userMapper.toDTO(userRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND, id))));
     }
 
     @Override
     public void delete(Long id) {
-
+        userRepository.deleteById(id);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND, USERNAME, username)));
+        return userRepository.findByUsername(username).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND_BY_USERNAME, USERNAME, username)));
     }
 }
