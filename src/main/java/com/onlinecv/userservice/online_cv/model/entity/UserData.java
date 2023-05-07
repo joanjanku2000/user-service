@@ -17,7 +17,7 @@ import static com.onlinecv.userservice.base.entity.BaseEntity.DELETE_CLAUSE;
 @SQLDelete(sql = "UPDATE UserData u SET u.deleted = true where u.id = ?")
 public class UserData extends BaseEntity {
     @ManyToOne
-    private User user;
+    private AppUser user;
     @ManyToOne
     private UserDataKey userDataKey;
 

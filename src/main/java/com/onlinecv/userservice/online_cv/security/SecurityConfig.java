@@ -20,6 +20,7 @@ public class SecurityConfig {
                         .permitAll())
         ;
         http.csrf().disable();
+        http.headers().frameOptions().disable();
         return http.build();
     }
 

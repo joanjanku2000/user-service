@@ -2,8 +2,8 @@ package com.onlinecv.userservice.online_cv.service.impl;
 
 import com.onlinecv.userservice.base.exceptions.NotFoundException;
 import com.onlinecv.userservice.online_cv.model.dto.UserDTO;
+import com.onlinecv.userservice.online_cv.model.entity.AppUser;
 import com.onlinecv.userservice.online_cv.model.entity.Role;
-import com.onlinecv.userservice.online_cv.model.entity.User;
 import com.onlinecv.userservice.online_cv.model.entity.UserRole;
 import com.onlinecv.userservice.online_cv.model.mapper.UserMapper;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
@@ -36,26 +36,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.roleRepository = roleRepository;
     }
 
-    @Validations(validations = {@Validate(validation = Validation.UNIQUE, field = "username", entity = User.class), @Validate(validation = Validation.UNIQUE, field = "email", entity = User.class)})
+    @Validations(validations = {@Validate(validation = Validation.UNIQUE, field = "userName", entity = AppUser.class), @Validate(validation = Validation.UNIQUE, field = "email", entity = AppUser.class)})
     @Override
     public UserDTO save(UserDTO dto) {
-        User user = userMapper.toEntity(dto);
+        AppUser user = userMapper.toEntity(dto);
         List<UserRole> userRoleList = requireNonNull(dto).getRoles().stream().map(role -> toUserRoleEntity(user, roleRepository.findById(role.getId()).orElseThrow(() -> new NotFoundException(String.format(ROLE_NOT_FOUND, role.getId()))))).collect(Collectors.toList());
         user.setUserRoles(userRoleList);
         return userMapper.toDTO(userRepository.save(user));
     }
 
-    private UserRole toUserRoleEntity(User user, Role role) {
+    private UserRole toUserRoleEntity(AppUser user, Role role) {
         UserRole userRole = new UserRole();
         userRole.setUser(user);
         userRole.setRole(role);
         return userRole;
     }
 
-    @Validations(validations = {@Validate(validation = Validation.UNIQUE, field = "username", entity = User.class), @Validate(validation = Validation.UNIQUE, field = "email", entity = User.class)})
+    @Validations(validations = {@Validate(validation = Validation.UNIQUE, field = "userName", entity = AppUser.class), @Validate(validation = Validation.UNIQUE, field = "email", entity = AppUser.class)})
     @Override
     public UserDTO update(UserDTO dto) {
-        User user = userRepository.findById(dto.getId()).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND, dto.getId())));
+        AppUser user = userRepository.findById(dto.getId()).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND, dto.getId())));
         return userMapper.toDTO(userRepository.save(userMapper.toEntityForUpdate(user, dto)));
     }
 
@@ -71,6 +71,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND_BY_USERNAME, USERNAME, username)));
+        return userRepository.findByUserName(username).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND_BY_USERNAME, USERNAME, username)));
     }
 }

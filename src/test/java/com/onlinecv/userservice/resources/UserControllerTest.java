@@ -8,7 +8,8 @@ import com.onlinecv.userservice.online_cv.model.entity.Role;
 import com.onlinecv.userservice.online_cv.model.mapper.RoleMapper;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
 import com.onlinecv.userservice.online_cv.repository.UserRepository;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class UserControllerTest extends BaseTest {
 
-    private static final String PATH = "/use";
+    private static final String PATH = "/user";
     private static final String USER_URL = BASE_URL + PATH;
     private static final RoleMapper roleMapper = Mappers.getMapper(RoleMapper.class);
     private final UserRepository userRepository;
@@ -35,13 +36,25 @@ public class UserControllerTest extends BaseTest {
         this.roleRepository = roleRepository;
     }
 
+    @BeforeEach
+    public void initializeRoles() {
+        Role role = roleRepository.save(roleMapper.roleDTOToRole(getTestRole()));
+        this.roleID = role.getId();
+    }
+
+    @AfterEach
+    public void deleteRole() {
+        roleRepository.deleteAll();
+    }
+
     public UserDTO getTestUser() {
         UserDTO userDTO = new UserDTO();
-        userDTO.setName("Joan");
-        userDTO.setUsername("jjanku");
+        userDTO.setFirstName("Joan");
+        userDTO.setUserName("jjanku");
         userDTO.setLastName("Janku");
         userDTO.setEmail("jjanku@jjanku.com");
         userDTO.setRoles(List.of(getTestRole()));
+        userDTO.setUserPassword("YEST");
         return userDTO;
     }
 
@@ -51,19 +64,13 @@ public class UserControllerTest extends BaseTest {
         return roleDTO;
     }
 
-    @BeforeAll
-    public void initializeRoles() {
-        Role role = roleRepository.save(roleMapper.roleDTOToRole(getTestRole()));
-        this.roleID = role.getId();
-    }
-
     @Override
     <T extends BaseDTO> void assertRolesEqual(T dto, T expectedDTO) {
         if (dto instanceof UserDTO && expectedDTO instanceof UserDTO) {
-            assertEquals(((UserDTO) dto).getName(), ((UserDTO) expectedDTO).getName());
+            assertEquals(((UserDTO) dto).getFirstName(), ((UserDTO) expectedDTO).getFirstName());
             assertEquals(((UserDTO) dto).getBirthday(), ((UserDTO) expectedDTO).getBirthday());
             assertEquals(((UserDTO) dto).getLastName(), ((UserDTO) expectedDTO).getLastName());
-            assertEquals(((UserDTO) dto).getUsername(), ((UserDTO) expectedDTO).getUsername());
+            assertEquals(((UserDTO) dto).getUserName(), ((UserDTO) expectedDTO).getUserName());
             assertEquals(((UserDTO) dto).getEmail(), ((UserDTO) expectedDTO).getEmail());
             assertEquals(((UserDTO) dto).getRoles().size(), ((UserDTO) expectedDTO).getRoles().size());
             for (int i = 0; i < ((UserDTO) dto).getRoles().size(); i++) {

@@ -11,7 +11,7 @@
 2023-05-02 19:28:59,293 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/10.1.8]
 2023-05-02 19:28:59,315 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
 2023-05-02 19:28:59,316 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 413 ms
-2023-05-02 19:28:59,377 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-02 19:28:59,377 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [firstName: default]
 2023-05-02 19:28:59,395 INFO o.h.Version [restartedMain] HHH000412: Hibernate ORM core version 6.1.7.Final
 2023-05-02 19:28:59,486 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Starting...
 2023-05-02 19:28:59,553 INFO c.z.h.p.HikariPool [restartedMain] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7e214b71

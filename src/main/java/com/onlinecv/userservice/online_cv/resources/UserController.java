@@ -4,8 +4,7 @@ import com.onlinecv.userservice.base.resources.BaseController;
 import com.onlinecv.userservice.online_cv.model.dto.UserDTO;
 import com.onlinecv.userservice.online_cv.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -17,23 +16,23 @@ public class UserController implements BaseController<UserDTO> {
         this.userService = userService;
     }
 
-    @Override
-    public ResponseEntity<UserDTO> save(UserDTO dto) {
+    @PostMapping
+    public ResponseEntity<UserDTO> save(@RequestBody UserDTO dto) {
         return ResponseEntity.ok(userService.save(dto));
     }
 
-    @Override
-    public ResponseEntity<UserDTO> update(UserDTO dto) {
+    @PutMapping
+    public ResponseEntity<UserDTO> update(@RequestBody UserDTO dto) {
         return ResponseEntity.ok(userService.update(dto));
     }
 
-    @Override
-    public ResponseEntity<UserDTO> findById(Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-    @Override
-    public void delete(Long id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
         userService.delete(id);
     }
 }

@@ -7,11 +7,12 @@ import java.util.List;
 
 
 public class UserDTO extends BaseDTO {
-    private String username;
-    private String name;
+    private String userName;
+    private String firstName;
     private String lastName;
     private LocalDate birthday;
     private String email;
+    private String userPassword;
     private List<RoleDTO> roles;
 
     public List<RoleDTO> getRoles() {
@@ -22,6 +23,14 @@ public class UserDTO extends BaseDTO {
         this.roles = roles;
     }
 
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -30,20 +39,20 @@ public class UserDTO extends BaseDTO {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {

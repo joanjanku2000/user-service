@@ -1,34 +1,34 @@
-2023-05-07 20:11:02,404 INFO o.s.b.StartupInfoLogger [main] Starting UserDataKeyControllerTest using Java 17.0.6 with PID 19169 (started by joanjanku in /Users/joanjanku/Documents/Online-Cv/user-service)
-2023-05-07 20:11:02,412 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.0.6, Spring v6.0.8
-2023-05-07 20:11:02,413 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
-2023-05-07 20:11:02,643 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-05-07 20:11:02,668 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 22 ms. Found 3 JPA repository interfaces.
-2023-05-07 20:11:02,923 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 9090 (http)
-2023-05-07 20:11:02,927 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-9090"]
-2023-05-07 20:11:02,927 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
-2023-05-07 20:11:02,928 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.8]
-2023-05-07 20:11:02,960 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
-2023-05-07 20:11:02,961 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 541 ms
-2023-05-07 20:11:02,980 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
-2023-05-07 20:11:03,055 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:user_cv user=SA
-2023-05-07 20:11:03,056 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
-2023-05-07 20:11:03,061 INFO o.s.b.a.h.H2ConsoleAutoConfiguration [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:user_cv'
-2023-05-07 20:11:03,139 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-05-07 20:11:03,157 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
-2023-05-07 20:11:03,259 INFO o.h.e.j.d.i.DialectFactoryImpl [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
-2023-05-07 20:11:03,550 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-05-07 20:11:03,553 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-05-07 20:11:03,731 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-05-07 20:11:03,865 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3e7940b3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1ae37be2, org.springframework.security.web.context.SecurityContextHolderFilter@26c494d7, org.springframework.security.web.header.HeaderWriterFilter@747476f1, org.springframework.security.web.authentication.logout.LogoutFilter@3203ffa3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@56c7e2d1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@31406eab, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@60147536, org.springframework.security.web.access.ExceptionTranslationFilter@3b45a3e6, org.springframework.security.web.access.intercept.AuthorizationFilter@100d5018]
-2023-05-07 20:11:03,943 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-9090"]
-2023-05-07 20:11:03,951 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 9090 (http) with context path ''
-2023-05-07 20:11:03,955 INFO o.s.b.StartupInfoLogger [main] Started UserDataKeyControllerTest in 1.704 seconds (process running for 2.246)
-2023-05-07 20:11:04,055 INFO o.a.j.l.DirectJDKLog [http-nio-9090-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-05-07 20:11:04,055 INFO o.s.w.s.FrameworkServlet [http-nio-9090-exec-1] Initializing Servlet 'dispatcherServlet'
-2023-05-07 20:11:04,056 INFO o.s.w.s.FrameworkServlet [http-nio-9090-exec-1] Completed initialization in 1 ms
-2023-05-07 20:11:04,211 INFO c.o.u.r.UserDataKeyControllerTest [main] Gotten response from server <200 OK OK,{"id":1,"keyName":"Test"},[X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY", Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Sun, 07 May 2023 18:11:04 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]> 
-2023-05-07 20:11:04,240 INFO c.o.u.r.UserDataKeyControllerTest [main] Message {}
-org.springframework.web.client.HttpClientErrorException$NotFound: 404 : "{"message":"UserDataKey with id 2072327260 not found","time":"2023-05-07T20:11:04.235791","failingRequest":"/user-data-key/2072327260","failingPayload":""}"
+2023-05-08 00:25:23,885 INFO o.s.b.StartupInfoLogger [main] Starting UserDataKeyControllerTest using Java 17.0.6 with PID 22418 (started by joanjanku in /Users/joanjanku/Documents/Online-Cv/user-service)
+2023-05-08 00:25:23,893 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.0.6, Spring v6.0.8
+2023-05-08 00:25:23,894 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-05-08 00:25:24,230 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-08 00:25:24,259 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 24 ms. Found 3 JPA repository interfaces.
+2023-05-08 00:25:24,532 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 9090 (http)
+2023-05-08 00:25:24,536 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-9090"]
+2023-05-08 00:25:24,537 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2023-05-08 00:25:24,537 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-05-08 00:25:24,571 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2023-05-08 00:25:24,571 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 666 ms
+2023-05-08 00:25:24,593 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-05-08 00:25:24,669 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:user_cv user=SA
+2023-05-08 00:25:24,670 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-05-08 00:25:24,675 INFO o.s.b.a.h.H2ConsoleAutoConfiguration [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:user_cv'
+2023-05-08 00:25:24,754 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-08 00:25:24,778 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-05-08 00:25:24,882 INFO o.h.e.j.d.i.DialectFactoryImpl [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-05-08 00:25:25,188 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-08 00:25:25,191 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-08 00:25:25,379 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-08 00:25:25,510 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@73bb782d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3a3375d8, org.springframework.security.web.context.SecurityContextHolderFilter@1ef8f7e6, org.springframework.security.web.header.HeaderWriterFilter@6a35cccf, org.springframework.security.web.authentication.logout.LogoutFilter@510d4d4b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@650d5a3d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2a8081f5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@63bb719d, org.springframework.security.web.access.ExceptionTranslationFilter@2f6f2d91, org.springframework.security.web.access.intercept.AuthorizationFilter@63075ad1]
+2023-05-08 00:25:25,595 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-9090"]
+2023-05-08 00:25:25,606 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 9090 (http) with context path ''
+2023-05-08 00:25:25,611 INFO o.s.b.StartupInfoLogger [main] Started UserDataKeyControllerTest in 1.873 seconds (process running for 2.507)
+2023-05-08 00:25:25,732 INFO o.a.j.l.DirectJDKLog [http-nio-9090-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-08 00:25:25,732 INFO o.s.w.s.FrameworkServlet [http-nio-9090-exec-1] Initializing Servlet 'dispatcherServlet'
+2023-05-08 00:25:25,732 INFO o.s.w.s.FrameworkServlet [http-nio-9090-exec-1] Completed initialization in 0 ms
+2023-05-08 00:25:25,908 INFO c.o.u.r.UserDataKeyControllerTest [main] Gotten response from server <200 OK OK,{"id":1,"keyName":"Test"},[X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Sun, 07 May 2023 22:25:25 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]> 
+2023-05-08 00:25:25,939 INFO c.o.u.r.UserDataKeyControllerTest [main] Message {}
+org.springframework.web.client.HttpClientErrorException$NotFound: 404 : "{"message":"UserDataKey with id 1487316619 not found","time":"2023-05-08T00:25:25.933778","failingRequest":"/user-data-key/1487316619","failingPayload":""}"
 	at org.springframework.web.client.HttpClientErrorException.create(HttpClientErrorException.java:112) ~[spring-web-6.0.8.jar:6.0.8]
 	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:183) ~[spring-web-6.0.8.jar:6.0.8]
 	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:137) ~[spring-web-6.0.8.jar:6.0.8]
@@ -109,9 +109,9 @@ org.springframework.web.client.HttpClientErrorException$NotFound: 404 : "{"messa
 	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35) ~[junit-rt.jar:?]
 	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:235) ~[junit-rt.jar:?]
 	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:54) ~[junit-rt.jar:?]
-2023-05-07 20:11:04,248 INFO c.o.u.r.UserDataKeyControllerTest [main] Message 404 : "{"message":"UserDataKey with id 2548422553417483636 not found","time":"2023-05-07T20:11:04.247824","failingRequest":"/user-data-key","failingPayload":""}"
-2023-05-07 20:11:04,273 INFO c.o.u.r.UserDataKeyControllerTest [main] Gotten response from server <200 OK OK,{"id":4,"keyName":"Test"},[X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY", Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Sun, 07 May 2023 18:11:04 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]> 
-2023-05-07 20:11:04,278 ERROR o.a.j.l.DirectJDKLog [http-nio-9090-exec-9] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException] with root cause
+2023-05-08 00:25:25,950 INFO c.o.u.r.UserDataKeyControllerTest [main] Message 404 : "{"message":"UserDataKey with id 1970063922186104026 not found","time":"2023-05-08T00:25:25.948199","failingRequest":"/user-data-key","failingPayload":""}"
+2023-05-08 00:25:25,980 INFO c.o.u.r.UserDataKeyControllerTest [main] Gotten response from server <200 OK OK,{"id":4,"keyName":"Test"},[X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Sun, 07 May 2023 22:25:25 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]> 
+2023-05-08 00:25:25,986 ERROR o.a.j.l.DirectJDKLog [http-nio-9090-exec-9] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException] with root cause
 java.lang.RuntimeException: null
 	at com.onlinecv.userservice.online_cv.validations.ValidationAspect.validate(ValidationAspect.java:39) ~[classes/:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
@@ -214,7 +214,7 @@ java.lang.RuntimeException: null
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.8.jar:10.1.8]
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.8.jar:10.1.8]
 	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-2023-05-07 20:11:04,296 ERROR o.a.j.l.DirectJDKLog [http-nio-9090-exec-1] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException] with root cause
+2023-05-08 00:25:26,007 ERROR o.a.j.l.DirectJDKLog [http-nio-9090-exec-1] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException] with root cause
 java.lang.RuntimeException: null
 	at com.onlinecv.userservice.online_cv.validations.ValidationAspect.validate(ValidationAspect.java:39) ~[classes/:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
@@ -317,6 +317,6 @@ java.lang.RuntimeException: null
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.8.jar:10.1.8]
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.8.jar:10.1.8]
 	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-2023-05-07 20:11:04,319 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-05-07 20:11:04,320 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
-2023-05-07 20:11:04,321 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-05-08 00:25:26,033 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-08 00:25:26,034 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-05-08 00:25:26,035 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

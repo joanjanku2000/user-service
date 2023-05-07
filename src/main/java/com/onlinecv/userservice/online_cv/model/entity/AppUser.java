@@ -1,9 +1,7 @@
 package com.onlinecv.userservice.online_cv.model.entity;
 
 import com.onlinecv.userservice.base.entity.BaseEntity;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,22 +18,47 @@ import static com.onlinecv.userservice.base.entity.BaseEntity.DELETE_CLAUSE;
 
 @Entity
 @Where(clause = DELETE_CLAUSE)
-@SQLDelete(sql = "UPDATE User u SET u.deleted = true where u.id = ?")
-public class User extends BaseEntity implements UserDetails {
-    private String username;
-    private String name;
+@SQLDelete(sql = "UPDATE public.app_user u SET u.deleted = true where u.id = ?")
+public class AppUser extends BaseEntity implements UserDetails {
+    private String userName;
+    private String firstName;
     private String lastName;
     private LocalDate birthday;
-    private String password;
+    private String userPassword;
+    private String email;
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<UserRole> userRoles;
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getName() {
-        return name;
+        return firstName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.firstName = name;
     }
 
     public String getLastName() {
@@ -88,18 +111,18 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     public String getPassword() {
-        return password;
+        return userPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

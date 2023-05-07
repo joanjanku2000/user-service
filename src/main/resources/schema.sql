@@ -1,12 +1,12 @@
-CREATE TABLE IF NOT EXISTS public."user"
+CREATE TABLE IF NOT EXISTS public.app_user
 (
     id            serial                      NOT NULL,
-    username      character varying(25)       NOT NULL,
-    name          character varying(100)      NOT NULL,
+    user_name     character varying(25)       NOT NULL,
+    first_name    character varying(100)      NOT NULL,
     last_name     character varying(100)      NOT NULL,
     email         character varying(255)      NOT NULL,
     birthday      timestamp without time zone,
-    password      text                        NOT NULL,
+    user_password text                        NOT NULL,
     deleted       boolean,
     created_at    timestamp without time zone NOT NULL,
     last_modified timestamp without time zone,
@@ -15,25 +15,25 @@ CREATE TABLE IF NOT EXISTS public."user"
 
 CREATE TABLE IF NOT EXISTS public.user_data_key
 (
-    id         serial                                         NOT NULL,
-    key_name   character varying(255)                              NOT NULL,
-    deleted    boolean                                        NOT NULL,
-    created_at timestamp without time zone,
+    id            serial                 NOT NULL,
+    key_name      character varying(255) NOT NULL,
+    deleted       boolean                NOT NULL,
+    created_at    timestamp without time zone,
     last_modified timestamp without time zone,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.user_data
 (
-    id         serial                 NOT NULL,
-    key_value      character varying(255) NOT NULL,
-    deleted    boolean  NOT NULL,
-    created_at timestamp without time zone,
-    last_modified  timestamp without time zone,
+    id            serial                 NOT NULL,
+    key_value     character varying(255) NOT NULL,
+    deleted       boolean                NOT NULL,
+    created_at    timestamp without time zone,
+    last_modified timestamp without time zone,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE  IF NOT EXISTS public.role
+CREATE TABLE IF NOT EXISTS public.role
 (
     id          serial                 NOT NULL,
     name        character varying(100) NOT NULL,
@@ -42,15 +42,17 @@ CREATE TABLE  IF NOT EXISTS public.role
     PRIMARY KEY (id)
 );
 
-CREATE TABLE  IF NOT EXISTS public.user_role
+CREATE TABLE IF NOT EXISTS public.user_role
 (
     id      serial  NOT NULL,
     user_id integer NOT NULL,
     role_id integer NOT NULL,
     deleted boolean,
+    created_at    timestamp without time zone,
+    last_modified timestamp without time zone,
     CONSTRAINT pk PRIMARY KEY (id),
     CONSTRAINT user_fk FOREIGN KEY (user_id)
-        REFERENCES public."user" (id)
+        REFERENCES public.app_user (id)
 );
 
 
@@ -62,7 +64,7 @@ ALTER TABLE IF EXISTS public.user_data
 
 ALTER TABLE IF EXISTS public.user_data
     ADD CONSTRAINT uid_fk FOREIGN KEY (user_id)
-        REFERENCES public."user" (id) ;
+        REFERENCES public.app_user (id);
 
 ALTER TABLE IF EXISTS public.user_data
     ADD CONSTRAINT dk_fk FOREIGN KEY (data_key_id)

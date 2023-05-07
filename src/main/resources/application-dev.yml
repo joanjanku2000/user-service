@@ -9,4 +9,3 @@ spring:
     username: ${USER_SERVICE_DB_USER:postgres}
     password: ${USER_SERVICE_DB_PSW:mausimj}
     driverClassName: org.postgresql.Driver
-  security:
