@@ -125,4 +125,16 @@ public class AppUser extends BaseEntity implements UserDetails {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthday=" + birthday +
+                ", userPassword='" + userPassword + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

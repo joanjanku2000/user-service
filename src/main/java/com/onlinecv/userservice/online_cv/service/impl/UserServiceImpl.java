@@ -8,11 +8,14 @@ import com.onlinecv.userservice.online_cv.model.entity.UserRole;
 import com.onlinecv.userservice.online_cv.model.mapper.UserMapper;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
 import com.onlinecv.userservice.online_cv.repository.UserRepository;
+import com.onlinecv.userservice.online_cv.repository.UserRoleRepository;
 import com.onlinecv.userservice.online_cv.service.UserService;
 import com.onlinecv.userservice.online_cv.validations.Validate;
 import com.onlinecv.userservice.online_cv.validations.Validation;
 import com.onlinecv.userservice.online_cv.validations.Validations;
 import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,14 +29,17 @@ import static java.util.Objects.requireNonNull;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     private static final String USERNAME = "username";
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final UserRoleRepository userRoleRepository;
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     @Validations(validations = {@Validate(validation = Validation.UNIQUE, field = "userName", entity = AppUser.class), @Validate(validation = Validation.UNIQUE, field = "email", entity = AppUser.class)})
@@ -52,10 +58,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRole;
     }
 
-    @Validations(validations = {@Validate(validation = Validation.UNIQUE, field = "userName", entity = AppUser.class), @Validate(validation = Validation.UNIQUE, field = "email", entity = AppUser.class)})
+
     @Override
     public UserDTO update(UserDTO dto) {
+        log.info("DTO {} ", dto.getId());
         AppUser user = userRepository.findById(dto.getId()).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND, dto.getId())));
+        if (userRepository.existsAppUsersByEmailOrUserNameButIsNotUserWithId(dto.getEmail(), dto.getUserName(), user.getId())) {
+            throw new RuntimeException();
+        }
         return userMapper.toDTO(userRepository.save(userMapper.toEntityForUpdate(user, dto)));
     }
 
