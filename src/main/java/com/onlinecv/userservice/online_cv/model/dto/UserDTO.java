@@ -3,6 +3,7 @@ package com.onlinecv.userservice.online_cv.model.dto;
 import com.onlinecv.userservice.base.dto.BaseDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 public class UserDTO extends BaseDTO {
@@ -10,6 +11,24 @@ public class UserDTO extends BaseDTO {
     private String name;
     private String lastName;
     private LocalDate birthday;
+    private String email;
+    private List<RoleDTO> roles;
+
+    public List<RoleDTO> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleDTO> roles) {
+        this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getUsername() {
         return username;
