@@ -1,6 +1,7 @@
 package com.onlinecv.userservice.online_cv.model.entity;
 
 import com.onlinecv.userservice.base.entity.BaseEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import org.hibernate.annotations.SQLDelete;
@@ -26,7 +27,7 @@ public class User extends BaseEntity implements UserDetails {
     private String lastName;
     private LocalDate birthday;
     private String password;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<UserRole> userRoles;
 
     public String getName() {
