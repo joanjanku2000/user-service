@@ -7,6 +7,7 @@ import com.onlinecv.userservice.online_cv.model.mapper.RoleMapper;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
 import com.onlinecv.userservice.online_cv.service.RoleService;
 import com.onlinecv.userservice.online_cv.validations.Validate;
+import com.onlinecv.userservice.online_cv.validations.Validations;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +25,14 @@ public class RoleServiceImpl implements RoleService {
         this.roleRepository = roleRepository;
     }
 
-    @Validate(value = UNIQUE, field = "name", entity = Role.class)
+    @Validations(validations = {@Validate(validation = UNIQUE, field = "name", entity = Role.class)})
     @Override
     public RoleDTO save(RoleDTO dto) {
         Role role = roleMapper.roleDTOToRole(dto);
         return roleMapper.roleToRoleDTO(roleRepository.save(role));
     }
 
-    @Validate(value = UNIQUE, field = "name", entity = Role.class)
+    @Validations(validations = @Validate(validation = UNIQUE, field = "name", entity = Role.class))
     @Override
     public RoleDTO update(RoleDTO dto) {
         Role role = roleMapper.toEntityForUpdate(dto, roleRepository.findById(requireNonNull(dto.getId())).orElseThrow(() -> new NotFoundException(String.format(ROLE_NOT_FOUND, dto.getId()))));

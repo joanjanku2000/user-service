@@ -7,16 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Validate {
-    String NULL = "null";
+public @interface Validations {
 
-    Validation validation();
-
-    String field() default NULL;
-
-    int argumentPos() default 0;
-
-    Class<?> entity() default Object.class;
-
+    Validate[] validations();
 }
-

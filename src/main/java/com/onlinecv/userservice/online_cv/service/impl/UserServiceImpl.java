@@ -9,6 +9,9 @@ import com.onlinecv.userservice.online_cv.model.mapper.UserMapper;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
 import com.onlinecv.userservice.online_cv.repository.UserRepository;
 import com.onlinecv.userservice.online_cv.service.UserService;
+import com.onlinecv.userservice.online_cv.validations.Validate;
+import com.onlinecv.userservice.online_cv.validations.Validation;
+import com.onlinecv.userservice.online_cv.validations.Validations;
 import org.mapstruct.factory.Mappers;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,6 +36,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.roleRepository = roleRepository;
     }
 
+    @Validations(validations = @Validate(validation = Validation.UNIQUE, field = "username", entity = User.class))
     @Override
     public UserDTO save(UserDTO dto) {
         User user = userMapper.toEntity(dto);
@@ -48,6 +52,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRole;
     }
 
+    @Validations(validations = @Validate(validation = Validation.UNIQUE, field = "username", entity = User.class))
     @Override
     public UserDTO update(UserDTO dto) {
         User user = userRepository.findById(dto.getId()).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND, dto.getId())));
