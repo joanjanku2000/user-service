@@ -11,6 +11,7 @@ import com.onlinecv.userservice.online_cv.validations.Validations;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
+import static com.onlinecv.userservice.online_cv.constants.BadRequestExceptionMessages.ROLE_EXISTS;
 import static com.onlinecv.userservice.online_cv.constants.NotFoundExceptionMessages.ROLE_NOT_FOUND;
 import static com.onlinecv.userservice.online_cv.validations.Validation.UNIQUE;
 import static java.util.Objects.requireNonNull;
@@ -25,14 +26,13 @@ public class RoleServiceImpl implements RoleService {
         this.roleRepository = roleRepository;
     }
 
-    @Validations(validations = {@Validate(validation = UNIQUE, field = "name", entity = Role.class)})
-    @Override
+    @Validations(validations = {@Validate(validation = UNIQUE, field = "name", entity = Role.class , message = ROLE_EXISTS)})
     public RoleDTO save(RoleDTO dto) {
         Role role = roleMapper.roleDTOToRole(dto);
         return roleMapper.roleToRoleDTO(roleRepository.save(role));
     }
 
-    @Validations(validations = @Validate(validation = UNIQUE, field = "name", entity = Role.class))
+    @Validations(validations = @Validate(validation = UNIQUE, field = "name", entity = Role.class, message = ROLE_EXISTS))
     @Override
     public RoleDTO update(RoleDTO dto) {
         Role role = roleMapper.toEntityForUpdate(dto, roleRepository.findById(requireNonNull(dto.getId())).orElseThrow(() -> new NotFoundException(String.format(ROLE_NOT_FOUND, dto.getId()))));

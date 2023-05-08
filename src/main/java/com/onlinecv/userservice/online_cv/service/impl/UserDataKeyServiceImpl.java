@@ -11,6 +11,7 @@ import com.onlinecv.userservice.online_cv.validations.Validations;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
+import static com.onlinecv.userservice.online_cv.constants.BadRequestExceptionMessages.USER_DATA_KEY_EXISTS;
 import static com.onlinecv.userservice.online_cv.constants.NotFoundExceptionMessages.USER_DATA_KEY_NOT_FOUND;
 import static com.onlinecv.userservice.online_cv.validations.Validation.UNIQUE;
 
@@ -24,14 +25,14 @@ public class UserDataKeyServiceImpl implements UserDataKeyService {
         this.userDataKeyRepository = userDataKeyRepository;
     }
 
-    @Validations(validations = @Validate(validation = UNIQUE, field = "keyName", entity = UserDataKey.class))
+    @Validations(validations = @Validate(validation = UNIQUE, field = "keyName", entity = UserDataKey.class, message = USER_DATA_KEY_EXISTS))
     @Override
     public UserDataKeyDTO save(UserDataKeyDTO dto) {
         UserDataKey userDataKey = userDataKeyMapper.toEntity(dto);
         return userDataKeyMapper.toDTO(userDataKeyRepository.save(userDataKey));
     }
 
-    @Validations(validations = @Validate(validation = UNIQUE, field = "keyName", entity = UserDataKey.class))
+    @Validations(validations = @Validate(validation = UNIQUE, field = "keyName", entity = UserDataKey.class, message = USER_DATA_KEY_EXISTS))
     @Override
     public UserDataKeyDTO update(UserDataKeyDTO dto) {
         UserDataKey userDataKey = userDataKeyMapper.toEntityForUpdate(dto, userDataKeyRepository.findById(dto.getId()).orElseThrow(() -> new NotFoundException(String.format(USER_DATA_KEY_NOT_FOUND, dto.getId()))));

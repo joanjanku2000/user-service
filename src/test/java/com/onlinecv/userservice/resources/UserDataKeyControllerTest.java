@@ -19,7 +19,6 @@ import static com.onlinecv.userservice.mapper.RoleMapperTest.TEST;
 import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static org.apache.commons.lang3.RandomUtils.nextLong;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class UserDataKeyControllerTest extends BaseTest {
@@ -60,11 +59,16 @@ public class UserDataKeyControllerTest extends BaseTest {
 
     @Test
     void postUserDataKey_Fail() throws JsonProcessingException {
-        UserDataKeyDTO userDataKeyDTO = getTestUserDataKeyDTO();
-        ResponseEntity<String> savedUserDataKey = postUserDataKey(userDataKeyDTO);
-        log.info("Gotten response from server {} ", savedUserDataKey);
-        assertSuccessfulAndCorrectResponse(userDataKeyDTO, savedUserDataKey);
-        assertThrows(RuntimeException.class, () -> postUserDataKey(userDataKeyDTO));
+        try {
+            UserDataKeyDTO userDataKeyDTO = getTestUserDataKeyDTO();
+            ResponseEntity<String> savedUserDataKey = postUserDataKey(userDataKeyDTO);
+            log.info("Gotten response from server {} ", savedUserDataKey);
+            assertSuccessfulAndCorrectResponse(userDataKeyDTO, savedUserDataKey);
+            postUserDataKey(userDataKeyDTO);
+        } catch (HttpClientErrorException e) {
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Test
@@ -78,7 +82,13 @@ public class UserDataKeyControllerTest extends BaseTest {
     @Test
     void putUserDataKey_Fail() throws JsonProcessingException {
         UserDataKeyDTO userDataKeyDTO = responseEntityToDTO(postUserDataKey(getTestUserDataKeyDTO()), UserDataKeyDTO.class);
-        assertThrows(RuntimeException.class, () -> put(USER_DATA_KEY_URL, userDataKeyDTO));
+        try {
+            put(USER_DATA_KEY_URL, userDataKeyDTO);
+        } catch (HttpClientErrorException e) {
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @Test

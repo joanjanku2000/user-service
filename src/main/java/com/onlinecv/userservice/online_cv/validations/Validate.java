@@ -17,6 +17,7 @@ public @interface Validate {
     int argumentPos() default 0;
 
     Class<?> entity() default Object.class;
+    String message() default "Error happened";
 
 }
 
