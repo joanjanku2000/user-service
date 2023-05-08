@@ -3,7 +3,6 @@ package com.onlinecv.userservice.online_cv.model.entity;
 import com.onlinecv.userservice.base.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 

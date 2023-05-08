@@ -1,5 +1,6 @@
 package com.onlinecv.userservice.online_cv.validations;
 
+import com.onlinecv.userservice.base.exceptions.BadRequestException;
 import com.onlinecv.userservice.base.repository.BaseRepository;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -16,8 +17,8 @@ import java.util.stream.Collectors;
 @Aspect
 @Component
 public class ValidationAspect {
-
     private final BaseRepository baseRepository;
+
 
     @Autowired
     public ValidationAspect(BaseRepository baseRepository) {
@@ -32,11 +33,11 @@ public class ValidationAspect {
             String fieldName = validateAnnotation.field();
             String entityClassName = validateAnnotation.entity().getSimpleName();
             Object o = proceedingJoinPoint.getArgs()[validateAnnotation.argumentPos()];
-
+            String exceptionMessage = validateAnnotation.message();
             if (validateAnnotation.validation().equals(Validation.UNIQUE)) {
                 if (baseRepository.findBy(entityClassName, fieldName, readValue(o, fieldName)).size() > 0) {
                     // stop execution
-                    throw new RuntimeException();
+                    throw new BadRequestException(exceptionMessage);
                 }
             }
         }

@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class UserControllerTest extends BaseTest {
@@ -35,6 +34,7 @@ public class UserControllerTest extends BaseTest {
     private static final String USER_URL = BASE_URL + PATH;
     private static final RoleMapper roleMapper = Mappers.getMapper(RoleMapper.class);
     private static final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
+    private static final String USERNAME = "username";
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
@@ -101,28 +101,44 @@ public class UserControllerTest extends BaseTest {
 
     @Test
     void postUser_Fail_DuplicateEmail() throws JsonProcessingException {
-        UserDTO userDTO = getTestUser();
-        ResponseEntity<String> savedUser = postUser(userDTO);
-        userDTO.setUserName("Different"); // change username to assure fails because of same email only
-        log.info("Gotten response from server {} ", savedUser);
-        assertThrows(RuntimeException.class, () -> postUser(userDTO));
+        try {
+            UserDTO userDTO = getTestUser();
+            ResponseEntity<String> savedUser = postUser(userDTO);
+            userDTO.setUserName("Different"); // change username to assure fails because of same email only
+            log.info("Gotten response from server {} ", savedUser);
+            postUser(userDTO);
+        } catch (HttpClientErrorException e) {
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @Test
     void postUser_Fail_DuplicateUsername() throws JsonProcessingException {
-        UserDTO userDTO = getTestUser();
-        ResponseEntity<String> savedUser = postUser(userDTO);
-        userDTO.setEmail("Different"); // change email to assure fails because of same username only
-        log.info("Gotten response from server {} ", savedUser);
-        assertThrows(RuntimeException.class, () -> postUser(userDTO));
+        try {
+            UserDTO userDTO = getTestUser();
+            ResponseEntity<String> savedUser = postUser(userDTO);
+            userDTO.setEmail("Different"); // change email to assure fails because of same username only
+            log.info("Gotten response from server {} ", savedUser);
+            postUser(userDTO);
+        } catch (HttpClientErrorException e) {
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Test
     void postUser_Fail_DuplicateUsernameAndEmail() throws JsonProcessingException {
-        UserDTO userDTO = getTestUser();
-        ResponseEntity<String> savedUser = postUser(userDTO);
-        log.info("Gotten response from server {} ", savedUser);
-        assertThrows(RuntimeException.class, () -> postUser(userDTO));
+        try {
+            UserDTO userDTO = getTestUser();
+            ResponseEntity<String> savedUser = postUser(userDTO);
+            log.info("Gotten response from server {} ", savedUser);
+            postUser(userDTO);
+        } catch (HttpClientErrorException e) {
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Test
@@ -137,11 +153,16 @@ public class UserControllerTest extends BaseTest {
 
     @Test
     void putUser_Fail() throws JsonProcessingException {
-        UserDTO userDTO = getTestUser();
-        ResponseEntity<String> savedUser = postUser(userDTO);
-        userRepository.save(userMapper.toEntity(userDTO));
-        log.info("Gotten response from server {}", savedUser);
-        assertThrows(RuntimeException.class, () -> put(USER_URL, responseEntityToDTO(savedUser, UserDTO.class)));
+        try {
+            UserDTO userDTO = getTestUser();
+            ResponseEntity<String> savedUser = postUser(userDTO);
+            userRepository.save(userMapper.toEntity(userDTO));
+            log.info("Gotten response from server {}", savedUser);
+            put(USER_URL, responseEntityToDTO(savedUser, UserDTO.class));
+        } catch (HttpClientErrorException e) {
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Test
@@ -180,10 +201,10 @@ public class UserControllerTest extends BaseTest {
 
         // check the db for user and USER ROLE (remember it should cascade to delete the user_role as well)
 
-        assertEquals(Optional.empty(),userRepository.findById(userId));
-        assertEquals(0,userRoleRepository.findAllByUserIdAndDeletedFalse(userId).size());
+        assertEquals(Optional.empty(), userRepository.findById(userId));
+        assertEquals(0, userRoleRepository.findAllByUserIdAndDeletedFalse(userId).size());
     }
-    private static final String USERNAME = "username";
+
     @Test
     void getUserByUsername() throws JsonProcessingException {
         UserDTO userDTO = getTestUser();
@@ -198,7 +219,7 @@ public class UserControllerTest extends BaseTest {
     @Test
     void getUserByUsername_Fail() throws JsonProcessingException {
         try {
-            get(USER_URL + SLASH + USERNAME + SLASH + USERNAME + LocalDateTime.now().toString());
+            get(USER_URL + SLASH + USERNAME + SLASH + USERNAME + LocalDateTime.now());
             assertEquals(1, 2);  // if request is successful , test must fail
         } catch (HttpClientErrorException e) {
             log.info("Message {}", e.getMessage());

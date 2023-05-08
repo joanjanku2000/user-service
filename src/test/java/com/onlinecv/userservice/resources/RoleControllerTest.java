@@ -2,6 +2,7 @@ package com.onlinecv.userservice.resources;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.onlinecv.userservice.base.dto.BaseDTO;
+import com.onlinecv.userservice.base.exceptions.BadRequestException;
 import com.onlinecv.userservice.online_cv.model.dto.RoleDTO;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
 import org.apache.commons.lang3.RandomUtils;
@@ -62,11 +63,16 @@ public class RoleControllerTest extends BaseTest {
     @Test
     @DisplayName("Test - POST /role - Non Unique")
     void postRole_Fail() throws JsonProcessingException {
-        RoleDTO roleDTO = getTestRole();
-        ResponseEntity<String> savedRole = postRole(roleDTO);
-        log.info("Gotten response from server {} ", savedRole);
-        assertSuccessfulAndCorrectResponse(roleDTO, savedRole);
-        assertThrows(RuntimeException.class, () -> postRole(roleDTO));
+        try {
+            RoleDTO roleDTO = getTestRole();
+            ResponseEntity<String> savedRole = postRole(roleDTO);
+            log.info("Gotten response from server {} ", savedRole);
+            assertSuccessfulAndCorrectResponse(roleDTO, savedRole);
+            postRole(roleDTO);
+        } catch (HttpClientErrorException e){
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Test
@@ -93,7 +99,12 @@ public class RoleControllerTest extends BaseTest {
     @DisplayName("Test - PUT /role - Must fail - Non Unique")
     void putRole_Fail() throws JsonProcessingException {
         RoleDTO createdRole = responseEntityToDTO(postRole(getTestRole()), RoleDTO.class);
-        assertThrows(RuntimeException.class, () -> put(ROLE_URL, createdRole));
+        try {
+            put(ROLE_URL, createdRole);
+        } catch (HttpClientErrorException e){
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Test

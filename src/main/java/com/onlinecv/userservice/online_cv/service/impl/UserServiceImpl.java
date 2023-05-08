@@ -1,5 +1,6 @@
 package com.onlinecv.userservice.online_cv.service.impl;
 
+import com.onlinecv.userservice.base.exceptions.BadRequestException;
 import com.onlinecv.userservice.base.exceptions.NotFoundException;
 import com.onlinecv.userservice.online_cv.model.dto.UserDTO;
 import com.onlinecv.userservice.online_cv.model.entity.AppUser;
@@ -8,7 +9,6 @@ import com.onlinecv.userservice.online_cv.model.entity.UserRole;
 import com.onlinecv.userservice.online_cv.model.mapper.UserMapper;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
 import com.onlinecv.userservice.online_cv.repository.UserRepository;
-import com.onlinecv.userservice.online_cv.repository.UserRoleRepository;
 import com.onlinecv.userservice.online_cv.service.UserService;
 import com.onlinecv.userservice.online_cv.validations.Validate;
 import com.onlinecv.userservice.online_cv.validations.Validation;
@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.onlinecv.userservice.online_cv.constants.BadRequestExceptionMessages.USER_EXISTS;
 import static com.onlinecv.userservice.online_cv.constants.NotFoundExceptionMessages.*;
 import static java.util.Objects.requireNonNull;
 
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.roleRepository = roleRepository;
     }
 
-    @Validations(validations = {@Validate(validation = Validation.UNIQUE, field = "userName", entity = AppUser.class), @Validate(validation = Validation.UNIQUE, field = "email", entity = AppUser.class)})
+    @Validations(validations = {@Validate(validation = Validation.UNIQUE, field = "userName", entity = AppUser.class, message = USER_EXISTS), @Validate(validation = Validation.UNIQUE, field = "email", entity = AppUser.class, message = USER_EXISTS)})
     @Override
     public UserDTO save(UserDTO dto) {
         AppUser user = userMapper.toEntity(dto);
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         log.info("DTO {} ", dto.getId());
         AppUser user = userRepository.findById(dto.getId()).orElseThrow(() -> new NotFoundException(String.format(USER_NOT_FOUND, dto.getId())));
         if (userRepository.existsAppUsersByEmailOrUserNameButIsNotUserWithId(dto.getEmail(), dto.getUserName(), user.getId())) {
-            throw new RuntimeException();
+            throw new BadRequestException(USER_EXISTS);
         }
         return userMapper.toDTO(userRepository.save(userMapper.toEntityForUpdate(user, dto)));
     }
