@@ -38,7 +38,7 @@ public class UserDataKeyControllerTest extends BaseTest {
     }
 
     @Override
-    <T extends BaseDTO> void assertRolesEqual(T dto, T expectedDTO) {
+    <T extends BaseDTO> void assertObjectsEqual(T dto, T expectedDTO) {
         if (dto instanceof UserDataKeyDTO && expectedDTO instanceof UserDataKeyDTO) {
             assertEquals(((UserDataKeyDTO) dto).getKeyName(), ((UserDataKeyDTO) expectedDTO).getKeyName());
         }

@@ -52,9 +52,13 @@ public abstract class BaseTest {
 
     protected <T extends BaseDTO> void assertSuccessfulAndCorrectResponse(T dto, ResponseEntity<String> entity) throws JsonProcessingException {
         assertEquals(entity.getStatusCode(), HttpStatus.OK);
-        assertRolesEqual(dto, responseEntityToDTO(entity, dto.getClass()));
+        assertSuccessfulAndCorrectResponse(dto, responseEntityToDTO(entity, dto.getClass()));
     }
 
-    abstract <T extends BaseDTO> void assertRolesEqual(T dto, T expectedDTO);
+    protected <T extends BaseDTO> void assertSuccessfulAndCorrectResponse(T dto, T expectedDTO) {
+        assertObjectsEqual(dto, expectedDTO);
+    }
+
+    abstract <T extends BaseDTO> void assertObjectsEqual(T dto, T expectedDTO);
 
 }

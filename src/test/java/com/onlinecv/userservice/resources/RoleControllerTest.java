@@ -35,7 +35,7 @@ public class RoleControllerTest extends BaseTest {
 
 
     @Override
-    <T extends BaseDTO> void assertRolesEqual(T roleDTO, T expectedRoleDto) {
+    <T extends BaseDTO> void assertObjectsEqual(T roleDTO, T expectedRoleDto) {
         if (roleDTO instanceof RoleDTO && expectedRoleDto instanceof RoleDTO) {
             assertEquals(((RoleDTO) roleDTO).getName(), ((RoleDTO) expectedRoleDto).getName());
             assertEquals(((RoleDTO) roleDTO).getDescription(), ((RoleDTO) expectedRoleDto).getDescription());
