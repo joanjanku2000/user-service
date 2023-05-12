@@ -34,7 +34,7 @@ public class UserControllerTest extends BaseTest {
     private static final String USER_URL = BASE_URL + PATH;
     private static final RoleMapper roleMapper = Mappers.getMapper(RoleMapper.class);
     private static final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
-    private static final String USERNAME = "username";
+    public static final String USERNAME = "username";
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
@@ -77,7 +77,7 @@ public class UserControllerTest extends BaseTest {
     }
 
     @Override
-    <T extends BaseDTO> void assertRolesEqual(T dto, T expectedDTO) {
+    <T extends BaseDTO> void assertObjectsEqual(T dto, T expectedDTO) {
         if (dto instanceof UserDTO && expectedDTO instanceof UserDTO) {
             assertEquals(((UserDTO) dto).getFirstName(), ((UserDTO) expectedDTO).getFirstName());
             assertEquals(((UserDTO) dto).getBirthday(), ((UserDTO) expectedDTO).getBirthday());

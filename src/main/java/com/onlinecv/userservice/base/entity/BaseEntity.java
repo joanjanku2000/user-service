@@ -36,27 +36,8 @@ public class BaseEntity {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getLastModified() {
-        return lastModified;
-    }
-
-    public void setLastModified(LocalDateTime lastModified) {
-        this.lastModified = lastModified;
-    }
-
     public Boolean getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
 }

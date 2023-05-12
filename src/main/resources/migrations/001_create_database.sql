@@ -60,14 +60,14 @@ ALTER TABLE IF EXISTS public.user_data
     ADD COLUMN user_id integer NOT NULL;
 
 ALTER TABLE IF EXISTS public.user_data
-    ADD COLUMN data_key_id integer NOT NULL;
+    ADD COLUMN user_data_key_id integer NOT NULL;
 
 ALTER TABLE IF EXISTS public.user_data
     ADD CONSTRAINT uid_fk FOREIGN KEY (user_id)
         REFERENCES public.app_user (id);
 
 ALTER TABLE IF EXISTS public.user_data
-    ADD CONSTRAINT dk_fk FOREIGN KEY (data_key_id)
+    ADD CONSTRAINT dk_fk FOREIGN KEY (user_data_key_id)
         REFERENCES public.user_data_key (id);
 
 ALTER table public.role

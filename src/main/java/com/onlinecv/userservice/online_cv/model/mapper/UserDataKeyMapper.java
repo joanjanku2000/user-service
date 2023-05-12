@@ -7,7 +7,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(uses = BaseMapper.class)
 public interface UserDataKeyMapper {
-
     UserDataKey toEntity(UserDataKeyDTO userDataKeyDTO);
 
     UserDataKeyDTO toDTO(UserDataKey userDataKey);
