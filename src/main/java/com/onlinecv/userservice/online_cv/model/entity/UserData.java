@@ -10,7 +10,7 @@ import static com.onlinecv.userservice.base.entity.BaseEntity.DELETE_CLAUSE;
 
 @Entity
 @Where(clause = DELETE_CLAUSE)
-@SQLDelete(sql = "UPDATE UserData u SET u.deleted = true where u.id = ?")
+@SQLDelete(sql = "UPDATE user_data u SET u.deleted = true where u.id = ?")
 public class UserData extends BaseEntity {
     @ManyToOne
     private AppUser user;
