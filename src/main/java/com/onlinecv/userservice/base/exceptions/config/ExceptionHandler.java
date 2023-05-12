@@ -18,25 +18,21 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ErrorFormat> handleNotFoundException(HttpServletRequest httpServletRequest, NotFoundException e) {
+    public ResponseEntity<ErrorFormat> handleNotFoundException(HttpServletRequest httpServletRequest, NotFoundException e) throws IOException {
         ErrorFormat errorFormat = getErrorFormat(httpServletRequest, e);
         return new ResponseEntity<>(errorFormat, HttpStatus.NOT_FOUND);
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ErrorFormat> handleBadRequestException(HttpServletRequest httpServletRequest, BadRequestException e) {
+    public ResponseEntity<ErrorFormat> handleBadRequestException(HttpServletRequest httpServletRequest, BadRequestException e) throws IOException {
         ErrorFormat errorFormat = getErrorFormat(httpServletRequest, e);
         return new ResponseEntity<>(errorFormat, HttpStatus.BAD_REQUEST);
     }
 
-    private ErrorFormat getErrorFormat(HttpServletRequest httpServletRequest, RuntimeException e) {
+    private ErrorFormat getErrorFormat(HttpServletRequest httpServletRequest, RuntimeException e) throws IOException {
         ErrorFormat errorFormat = null;
-        try {
-            errorFormat = new ErrorFormat(e.getMessage(), LocalDateTime.now(), httpServletRequest.getRequestURI(), extractBytesToString(httpServletRequest.getInputStream().readAllBytes()));
-        } catch (IOException ex) {
-            errorFormat = new ErrorFormat(e.getMessage(), LocalDateTime.now(), httpServletRequest.getRequestURI());
-        }
+        errorFormat = new ErrorFormat(e.getMessage(), LocalDateTime.now(), httpServletRequest.getRequestURI(), extractBytesToString(httpServletRequest.getInputStream().readAllBytes()));
         return errorFormat;
     }
 

@@ -17,10 +17,6 @@ public class UserRole extends BaseEntity {
     @ManyToOne
     private Role role;
 
-    public AppUser getUser() {
-        return user;
-    }
-
     public void setUser(AppUser user) {
         this.user = user;
     }

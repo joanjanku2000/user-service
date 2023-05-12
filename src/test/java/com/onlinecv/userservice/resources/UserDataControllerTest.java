@@ -9,14 +9,13 @@ import com.onlinecv.userservice.online_cv.model.dto.UserDataDTO;
 import com.onlinecv.userservice.online_cv.model.dto.UserDataKeyDTO;
 import com.onlinecv.userservice.online_cv.model.entity.Role;
 import com.onlinecv.userservice.online_cv.model.mapper.RoleMapper;
-import com.onlinecv.userservice.online_cv.model.mapper.UserDataKeyMapper;
-import com.onlinecv.userservice.online_cv.model.mapper.UserDataMapper;
-import com.onlinecv.userservice.online_cv.model.mapper.UserMapper;
 import com.onlinecv.userservice.online_cv.repository.RoleRepository;
+import com.onlinecv.userservice.online_cv.repository.UserDataKeyRepository;
 import com.onlinecv.userservice.online_cv.repository.UserDataRepository;
 import com.onlinecv.userservice.online_cv.repository.UserRepository;
 import com.onlinecv.userservice.online_cv.service.UserDataKeyService;
 import com.onlinecv.userservice.online_cv.service.UserService;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,30 +24,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.onlinecv.userservice.mapper.RoleMapperTest.TEST;
 import static com.onlinecv.userservice.mapper.RoleMapperTest.getTestRole;
+import static java.lang.String.valueOf;
+import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class UserDataControllerTest extends BaseTest {
 
+    public static final String NEW_TEST_VALUE = "New Test Value";
     private static final String PATH = "/user-data";
     private static final String USER_DATA_URL = BASE_URL + PATH;
-    private static final UserDataKeyMapper userDataKeyMapper = Mappers.getMapper(UserDataKeyMapper.class);
-    private static final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
-    private static final UserDataMapper userDataMapper = Mappers.getMapper(UserDataMapper.class);
     private static final RoleMapper roleMapper = Mappers.getMapper(RoleMapper.class);
     private final UserRepository userRepository;
     private final UserService userService;
     private final UserDataRepository userDataRepository;
     private final UserDataKeyService userDataKeyService;
+    private final UserDataKeyRepository userDataKeyRepository;
     private final RoleRepository roleRepository;
     private Long roleID;
     private UserDTO userDTO;
@@ -56,12 +58,14 @@ public class UserDataControllerTest extends BaseTest {
 
 
     @Autowired
-    public UserDataControllerTest(UserRepository userRepository, UserDataKeyService userDataKeyService, UserDataRepository userDataRepository, RoleRepository roleRepository, UserService userService) {
+    public UserDataControllerTest(UserRepository userRepository, UserDataKeyService userDataKeyService, UserDataRepository userDataRepository, RoleRepository roleRepository, UserService userService, UserDataKeyRepository
+            userDataKeyRepository) {
         this.userDataRepository = userDataRepository;
         this.userDataKeyService = userDataKeyService;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userService = userService;
+        this.userDataKeyRepository = userDataKeyRepository;
     }
 
     @BeforeEach
@@ -92,9 +96,10 @@ public class UserDataControllerTest extends BaseTest {
     @AfterEach
     void deleteEverything() {
         userDataKeyDTOS.clear();
+        roleRepository.deleteAll();
         userRepository.deleteAll();
         userDataRepository.deleteAll();
-        userDataRepository.deleteAll();
+        userDataKeyRepository.deleteAll();
     }
 
     @Override
@@ -118,14 +123,116 @@ public class UserDataControllerTest extends BaseTest {
     public void postUserData() {
         List<UserDataDTO> userDataDTOList = getUserTestData();
         List<UserDataDTO> userDataDTOResponseList = userDataDTOList.stream().map(this::postUserData).map(this::responseEntityToDTO).collect(Collectors.toList());
+        assertEqualLists(userDataDTOList, userDataDTOResponseList);
+    }
+
+    private void assertEqualLists(List<UserDataDTO> userDataDTOList, List<UserDataDTO> userDataDTOResponseList) {
         assertEquals(userDataDTOList.size(), userDataDTOResponseList.size());
         for (Iterator<UserDataDTO> udI = userDataDTOList.listIterator(), udRespI = userDataDTOResponseList.listIterator(); udI.hasNext() && udRespI.hasNext(); ) {
             UserDataDTO expectedUserDataDTO = udI.next();
             UserDataDTO actualUserDataDTO = udRespI.next();
-            assertSuccessfulAndCorrectResponse(expectedUserDataDTO,actualUserDataDTO);
+            assertSuccessfulAndCorrectResponse(expectedUserDataDTO, actualUserDataDTO);
         }
     }
 
+    @Test
+    public void postUserData_Fail_UserNotFound() {
+        List<UserDataDTO> userDataDTOList = getUserTestData();
+        for (UserDataDTO userDataDTO : userDataDTOList) {
+            userDataDTO.getUserDTO().setId(RandomUtils.nextLong(100, Long.MAX_VALUE));
+        }
+        try {
+            List<UserDataDTO> userDataDTOResponseList = userDataDTOList.stream().map(this::postUserData).map(this::responseEntityToDTO).collect(Collectors.toList());
+            assertEquals(1, 2); // test must fail since user must not exist
+        } catch (HttpClientErrorException e) {
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Test
+    public void postUserData_Fail_DataKeyNotFound() {
+        List<UserDataDTO> userDataDTOList = getUserTestData();
+        for (UserDataDTO userDataDTO : userDataDTOList) {
+            userDataDTO.getUserDataKey().setId(RandomUtils.nextLong(100, Long.MAX_VALUE));
+        }
+        try {
+            List<UserDataDTO> userDataDTOResponseList = userDataDTOList.stream().map(this::postUserData).map(this::responseEntityToDTO).collect(Collectors.toList());
+            assertEquals(1, 2); // test must fail since user must not exist
+        } catch (HttpClientErrorException e) {
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Test
+    public void putUserData() {
+        List<UserDataDTO> userDataDTOList = getUserTestData();
+        List<UserDataDTO> userDataDTOResponseList = userDataDTOList.stream().map(this::postUserData).map(this::responseEntityToDTO).collect(Collectors.toList());
+        for (UserDataDTO userDataDTO : userDataDTOResponseList) {
+            userDataDTO.setKeyValue(NEW_TEST_VALUE.concat(valueOf(nextInt()))); // update-ing each
+        }
+        List<UserDataDTO> newUserDataDTOResponses = userDataDTOResponseList.stream().map(this::putUserData).map(this::responseEntityToDTO).collect(Collectors.toList());
+        assertEqualLists(userDataDTOResponseList, newUserDataDTOResponses);
+    }
+
+    @Test
+    public void putUserData_Fail() {
+        List<UserDataDTO> userDataDTOList = getUserTestData();
+        List<UserDataDTO> userDataDTOResponseList = userDataDTOList.stream().map(this::postUserData).map(this::responseEntityToDTO).collect(Collectors.toList());
+        for (UserDataDTO userDataDTO : userDataDTOResponseList) {
+            userDataDTO.setKeyValue(NEW_TEST_VALUE.concat(valueOf(nextInt()))); // update-ing each
+            userDataDTO.setId(RandomUtils.nextLong(100, Long.MAX_VALUE));
+        }
+        try {
+            List<UserDataDTO> newUserDataDTOResponses = userDataDTOResponseList.stream().map(this::putUserData).map(this::responseEntityToDTO).collect(Collectors.toList());
+            assertEquals(1, 2); //must fail cause of user
+        } catch (HttpClientErrorException e) {
+            log.info("Message {}", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Test
+    void getUserData() {
+        List<UserDataDTO> userDataDTOList = getUserTestData();
+        List<UserDataDTO> userDataDTOResponseList = userDataDTOList.stream().map(this::postUserData).map(this::responseEntityToDTO).collect(Collectors.toList());
+        List<UserDataDTO> gottenUserDataDTOResps = userDataDTOResponseList.stream().map(ud -> get(USER_DATA_URL + SLASH + ud.getId())).map(this::responseEntityToDTO).collect(Collectors.toList());
+        assertEqualLists(userDataDTOResponseList, gottenUserDataDTOResps);
+    }
+
+    @Test
+    void getUserData_Fail() {
+        List<UserDataDTO> userDataDTOList = getUserTestData();
+        List<UserDataDTO> userDataDTOResponseList = userDataDTOList.stream().map(this::postUserData).map(this::responseEntityToDTO).collect(Collectors.toList());
+        for (UserDataDTO userDataDTO : userDataDTOResponseList) {
+            userDataDTO.setId(RandomUtils.nextLong(100, Long.MAX_VALUE)); // smth out of reach
+        }
+        try {
+            userDataDTOResponseList.stream().map(ud -> get(USER_DATA_URL + SLASH + ud.getId())).map(this::responseEntityToDTO).collect(Collectors.toList());
+            assertEquals(1, 2); // must fail not found by id
+        } catch (HttpClientErrorException e) {
+            log.info("Message {} ", e.getMessage());
+            assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Test
+    void deleteUserData() {
+        List<UserDataDTO> userDataDTOList = getUserTestData();
+        List<UserDataDTO> userDataDTOResponseList = userDataDTOList.stream().map(this::postUserData).map(this::responseEntityToDTO).collect(Collectors.toList());
+        userDataDTOResponseList.forEach(ud -> delete(USER_DATA_URL + SLASH + ud.getId()));
+        // assert the given IDs aren't found in the db
+        userDataDTOResponseList.forEach(ud -> assertEquals(Optional.empty(), userDataRepository.findById(ud.getId())));
+    }
+
+    private ResponseEntity<String> putUserData(UserDataDTO userDataDTO) {
+        try {
+            return put(USER_DATA_URL, userDataDTO);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private ResponseEntity<String> postUserData(UserDataDTO userDataDTO) {
         try {

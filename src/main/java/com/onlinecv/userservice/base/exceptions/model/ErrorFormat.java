@@ -9,19 +9,13 @@ public class ErrorFormat {
     private final String message;
     private final LocalDateTime time;
     private final String failingRequest;
-    private String failingPayload;
+    private final String failingPayload;
 
     public ErrorFormat(String message, LocalDateTime time, String failingRequest, String failingPayload) {
         this.message = message;
         this.time = time;
         this.failingRequest = failingRequest;
         this.failingPayload = failingPayload;
-    }
-
-    public ErrorFormat(String message, LocalDateTime time, String failingRequest) {
-        this.message = message;
-        this.time = time;
-        this.failingRequest = failingRequest;
     }
 
     public String getMessage() {
@@ -32,11 +26,4 @@ public class ErrorFormat {
         return time;
     }
 
-    public String getFailingRequest() {
-        return failingRequest;
-    }
-
-    public String getFailingPayload() {
-        return failingPayload;
-    }
 }
